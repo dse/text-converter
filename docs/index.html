@@ -12,53 +12,79 @@
     </head>
     <body>
 
-        <div class="grid-container">
-            <div class="grid-x grid-margin-x">
-                <div class="cell">
-                    <h1>
-                        Text Converter
-                    </h1>
-                    <form>
-                        <div class="grid-x grid-margin-x" style="align-items: baseline;">
-                            <div class="cell large-6">
-                                <select id="converter" name="converter">
-                                </select>
-                            </div>
-                            <div class="cell large-6">
-                                <input id="zalgo" type="checkbox"><label for="zalgo">Zalgo</label>
-                                <input id="backwards" type="checkbox"><label for="backwards">Backwards</label>
-                                <input id="rot13" type="checkbox"><label for="rot13">ROT13</label>
-                                <span style="white-space: nowrap;">
-                                    <label style="display: inline;" for="transform">Case:</label>
-                                    <select style="display: inline; width: auto;" name="transform" id="transform">
-                                        <option value="">None</option>
-                                        <option value="lowercase">Lower Case</option>
-                                        <option value="uppercase">Upper Case</option>
-                                        <option value="spongebob">Spongebob</option>
-                                    </select>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell large-6">
-                                <h2>
-                                    Input
-                                </h2>
-                                <textarea rows="8" id="input" name="input" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit."></textarea>
-                            </div>
-                            <div class="cell large-6">
-                                <h2>
-                                    Output
-                                </h2>
-                                <textarea rows="8" readonly id="output" name="output"></textarea>
-                                <button class="button primary" style="vertical-align: baseline;" id="copyButton" onclick="TextConverter.copy();">Copy</button>
-                                <span id="copiedIndicator" class="copiedIndicator">Copied!</span>
-                            </div>
-                        </div>
-                    </form>
+        <header>
+            <div class="grid-container">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell">
+
+                        <a href="https://webonastick.com/">Darren Embry</a> &gt; Text Converter
+
+                    </div>
                 </div>
             </div>
-        </div>
+        </header>
+
+        <main>
+            <div class="grid-container">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell">
+                        <h1>
+                            Text Converter
+                        </h1>
+                        <form>
+                            <div class="grid-x grid-margin-x" style="align-items: baseline;">
+                                <div class="cell large-6">
+                                    <select id="converter" name="converter">
+                                    </select>
+                                </div>
+                                <div class="cell large-6">
+                                    <input id="zalgo" type="checkbox"><label for="zalgo">Zalgo</label>
+                                    <input id="backwards" type="checkbox"><label for="backwards">Backwards</label>
+                                    <input id="rot13" type="checkbox"><label for="rot13">ROT13</label>
+                                    <span style="white-space: nowrap;">
+                                        <label style="display: inline;" for="transform">Case:</label>
+                                        <select style="display: inline; width: auto;" name="transform" id="transform">
+                                            <option value="">None</option>
+                                            <option value="lowercase">Lower Case</option>
+                                            <option value="uppercase">Upper Case</option>
+                                            <option value="spongebob">Spongebob</option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x">
+                                <div class="cell large-6">
+                                    <h2>
+                                        Input
+                                    </h2>
+                                    <textarea rows="8" id="input" name="input" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit."></textarea>
+                                </div>
+                                <div class="cell large-6">
+                                    <h2>
+                                        Output
+                                    </h2>
+                                    <textarea rows="8" readonly id="output" name="output"></textarea>
+                                    <button class="button primary" style="vertical-align: baseline;" id="copyButton" onclick="TextConverter.copy();">Copy</button>
+                                    <span id="copiedIndicator" class="copiedIndicator">Copied!</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="grid-container">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell">
+
+                        Copyright <script>document.write(new Date().getFullYear());</script> <a href="mailto:dse@webonastick.com">Darren Embry</a>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
 
     </body>
 </html>

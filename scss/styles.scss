@@ -5,3 +5,17 @@
     opacity: 0.0;
     transition: opacity 2s;
 }
+header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $medium-gray;
+}
+footer {
+    border-top: 1px solid $medium-gray;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+main {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

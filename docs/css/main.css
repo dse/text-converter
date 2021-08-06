@@ -208,7 +208,7 @@ strong, b { font-weight: bold; line-height: inherit; }
 
 small { font-size: 80%; line-height: inherit; }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 { font-family: "Inter", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-style: normal; font-weight: normal; color: inherit; text-rendering: optimizeLegibility; }
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 { font-family: "Inter", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-style: normal; font-weight: bold; color: inherit; text-rendering: optimizeLegibility; }
 
 h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h4 small, .h4 small, h5 small, .h5 small, h6 small, .h6 small { line-height: 0; color: #999999; }
 
@@ -2626,3 +2626,9 @@ ol.list-upper-roman { list-style-type: upper-roman !important; }
 .copiedIndicator.flash { opacity: 1.0; }
 
 .copiedIndicator:not(.flash) { opacity: 0.0; -webkit-transition: opacity 2s; transition: opacity 2s; }
+
+header { padding-top: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #999999; }
+
+footer { border-top: 1px solid #999999; padding-top: 1rem; padding-bottom: 1rem; }
+
+main { padding-top: 1rem; padding-bottom: 1rem; }
