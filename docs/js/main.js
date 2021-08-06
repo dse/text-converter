@@ -141,6 +141,7 @@ var TextConverter = {
             this.elements.converter.appendChild(option);
         }.bind(this));
         converter.addEventListener('change', this.update.bind(this));
+        converter.addEventListener('change', this.onChangeConverter.bind(this));
         input.addEventListener('keydown', this.update.bind(this));
         input.addEventListener('keypress', this.update.bind(this));
         input.addEventListener('keyup', this.update.bind(this));
@@ -149,17 +150,23 @@ var TextConverter = {
         if (value != null) {
             input.value = value;
         }
-        this.update();
         this.elements.copyButton.addEventListener('click', function (event) {
             event.preventDefault();
             this.copy();
         }.bind(this));
+
+        this.update();
+        this.onChangeConverter();
     },
     update: function (event) {
         this.converter = this.converterHash[this.elements.converter.options[this.elements.converter.selectedIndex].value];
         var value = input.value;
         localStorage.setItem('textConverterInput', JSON.stringify(value));
         this.elements.output.value = this.convert(value, this.converter);
+    },
+    onChangeConverter: function () {
+        var placeholder = this.elements.input.getAttribute('placeholder');
+        this.elements.output.setAttribute('placeholder', (placeholder != null) ? this.convert(placeholder, this.converter) : '');
     },
     copy: function () {
         navigator.clipboard.writeText(this.elements.output.value).then(function () {
