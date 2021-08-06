@@ -2641,7 +2641,7 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-or
 
 body > main { -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
 
-ul.keywords { list-style: none; padding-left: 0; opacity: 50%; }
+ul.keywords { list-style: none; padding-left: 0; }
 
 ul.keywords > li { display: inline; white-space: nowrap; }
 
