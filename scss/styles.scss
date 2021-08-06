@@ -42,3 +42,14 @@ body {
     > footer {
     }
 }
+ul.keywords {
+    list-style: none; padding-left: 0;
+    opacity: 50%;
+    > li {
+        &::before {
+            content: '•\a0';
+        }
+        display: inline;
+        white-space: nowrap;
+    }
+}
