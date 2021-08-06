@@ -162,7 +162,7 @@ var TextConverter = {
         this.elements.output.value = this.convert(value, this.converter);
     },
     copy: function () {
-        Navigator.clipboard.writeText(this.elements.output.value).then(function () {
+        navigator.clipboard.writeText(this.elements.output.value).then(function () {
             this.elements.copiedIndicator.classList.add('flash');
             requestAnimationFrame(function () {
                 this.elements.copiedIndicator.classList.remove('flash');
