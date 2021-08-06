@@ -279,6 +279,8 @@ var TextConverter = {
         var backwards = this.elements.backwards.checked;
         var rot13 = this.elements.rot13.checked;
 
+        this.elements.zalgoLevel.disabled = !zalgo;
+
         this.converter = this.converterHash[this.elements.converter.options[this.elements.converter.selectedIndex].value];
 
         var value = input.value;
