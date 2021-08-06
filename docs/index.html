@@ -19,10 +19,24 @@
                         Text Converter
                     </h1>
                     <form>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell">
+                        <div class="grid-x grid-margin-x" style="align-items: baseline;">
+                            <div class="cell large-6">
                                 <select id="converter" name="converter">
                                 </select>
+                            </div>
+                            <div class="cell large-6">
+                                <input id="zalgo" type="checkbox"><label for="zalgo">Zalgo</label>
+                                <input id="backwards" type="checkbox"><label for="backwards">Backwards</label>
+                                <input id="rot13" type="checkbox"><label for="rot13">ROT13</label>
+                                <span style="white-space: nowrap;">
+                                    <label style="display: inline;" for="transform">Case:</label>
+                                    <select style="display: inline; width: auto;" name="transform" id="transform">
+                                        <option value="">None</option>
+                                        <option value="lowercase">Lower Case</option>
+                                        <option value="uppercase">Upper Case</option>
+                                        <option value="spongebob">Spongebob</option>
+                                    </select>
+                                </span>
                             </div>
                         </div>
                         <div class="grid-x grid-margin-x">

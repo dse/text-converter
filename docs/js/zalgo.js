@@ -184,12 +184,16 @@ Object.assign(Zalgo.prototype, {
         return r;
     },
     convert: function (string) {
-        string = string.replace(/([^\ud800-\udfff]|[\ud800-\udfff]{2})/g, function (x) {
+        string = string.replace(/([^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff])/g, function (x) {
             return this.convertChar(x);
         }.bind(this));
         return string;
     },
     convertChar: function (char) {
+        var code = char.charCodeAt(0);
+        if ((code >= 0 && code <= 32) || (code >= 127 && code <= 160)) {
+            return char;
+        }
         var n = this.min + Math.floor(Math.random() * (this.max - this.min + 1));
         var i;
         for (i = 1; i <= n; i += 1) {
