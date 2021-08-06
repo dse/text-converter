@@ -43,9 +43,16 @@
                                     </select>
                                 </div>
                                 <div class="cell large-6">
-                                    <input id="zalgo" type="checkbox"><label for="zalgo">Zalgo</label>
-                                    <input id="backwards" type="checkbox"><label for="backwards">Backwards</label>
-                                    <input id="rot13" type="checkbox"><label for="rot13">ROT13</label>
+                                    <span style="white-space: nowrap;">
+                                        <input id="zalgo" type="checkbox"><label style="margin-right: 0;" for="zalgo">Zalgo</label>
+                                        <input style="display: inline; width: auto; margin-right: 1rem;" type="number" min="1" max="20" value="5" id="zalgoLevel">
+                                    </span>
+                                    <span style="white-space: nowrap;">
+                                        <input id="backwards" type="checkbox"><label for="backwards">Backwards</label>
+                                    </span>
+                                    <span style="white-space: nowrap;">
+                                        <input id="rot13" type="checkbox"><label for="rot13">ROT13</label>
+                                    </span>
                                     <span style="white-space: nowrap;">
                                         <label style="display: inline;" for="transform">Case:</label>
                                         <select style="display: inline; width: auto;" name="transform" id="transform">
@@ -74,6 +81,41 @@
                                 </div>
                             </div>
                         </form>
+                        <h2 class="h6">
+                            Keywords
+                        </h2>
+                        <ul class="keywords" style="font-size: 80%;">
+                            <li>Fullwidth</li>
+                            <li>Math Fraktur</li>
+                            <li>Math Bold Fraktur</li>
+                            <li>Math Serif</li>
+                            <li>Math Italic</li>
+                            <li>Math Bold</li>
+                            <li>Math Bold Italic</li>
+                            <li>Math Sans</li>
+                            <li>Math Sans Bold</li>
+                            <li>Math Sans Italic</li>
+                            <li>Math Sans Bold Italic</li>
+                            <li>Math Script</li>
+                            <li>Math Bold Script</li>
+                            <li>Math Double-Struck</li>
+                            <li>Math Monospace</li>
+                            <li>Parenthesized</li>
+                            <li>Circled</li>
+                            <li>Negative Circled</li>
+                            <li>Squared</li>
+                            <li>Negative Squared</li>
+                            <li>Comic</li>
+                            <li>Manga</li>
+                            <li>Ladybug</li>
+                            <li>Tai</li>
+                            <li>Yi</li>
+                            <li>Fake Cyrillic</li>
+                            <li>Inverted</li>
+                            <li>Reversed</li>
+                            <li>Small Capitals</li>
+                            <li>Rock Dots</li>
+                        </ul>
                     </div>
                 </div>
             </div>

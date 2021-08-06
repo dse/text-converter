@@ -213,6 +213,7 @@ var TextConverter = {
         this.elements.backwards = document.getElementById('backwards');
         this.elements.rot13 = document.getElementById('rot13');
         this.elements.transform = document.getElementById('transform');
+        this.elements.zalgoLevel = document.getElementById('zalgoLevel');
 
         this.converters.forEach(function (converter) {
             this.converterHash[converter.name] = converter;
@@ -238,11 +239,13 @@ var TextConverter = {
         this.elements.backwards.addEventListener('change', this.update.bind(this));
         this.elements.rot13.addEventListener('change', this.update.bind(this));
         this.elements.transform.addEventListener('change', this.update.bind(this));
+        this.elements.zalgoLevel.addEventListener('change', this.update.bind(this));
 
         this.elements.zalgo.addEventListener('change', this.onChangeConverter.bind(this));
         this.elements.backwards.addEventListener('change', this.onChangeConverter.bind(this));
         this.elements.rot13.addEventListener('change', this.onChangeConverter.bind(this));
         this.elements.transform.addEventListener('change', this.onChangeConverter.bind(this));
+        this.elements.zalgoLevel.addEventListener('change', this.onChangeConverter.bind(this));
 
         this.elements.copyButton.addEventListener('click', function (event) {
             event.preventDefault();
@@ -325,6 +328,7 @@ var TextConverter = {
         if (!this.zalgo) {
             this.zalgo = new Zalgo();
         }
+        this.zalgo.max = this.zalgo.min = Number(this.elements.zalgoLevel.value);
         return this.zalgo.convert(string);
     },
     transformBackwards: function (string) {
