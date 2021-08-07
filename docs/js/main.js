@@ -2,7 +2,7 @@
 function toUpperCase(s) {
     return s.toUpperCase();
 }
-var TextConverter = {
+var TextConverterPage = {
     isMemberOf: function (member, club) {
         /*jshint -W088 */
         var key;
@@ -369,4 +369,4 @@ var TextConverter = {
     },
 };
 
-window.addEventListener('load', TextConverter.init.bind(TextConverter));
+window.addEventListener('load', TextConverterPage.init.bind(TextConverterPage));
