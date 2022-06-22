@@ -16,7 +16,3 @@ publish:
 			cd "$$(dirname $(REPOS_DIR))" && git clone $(REPOS_URL) ; \
 		fi ; \
 		ln -n -f -s $(DOCUMENT_ROOT) $(SYMLINK)'
-
-# .PHONY: publish
-# publish:
-#	ssh dse@webonastick.com 'cd git/dse.d/text-converter && git pull'
