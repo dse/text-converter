@@ -97,7 +97,6 @@ Object.assign(TextConverter.prototype, {
         if (from instanceof Array && from.length >= 2) {
             fromCodeRangeLow = from[0];
             fromCodeRangeHigh = from[1];
-            console.log(fromCodeRangeLow, fromCodeRangeHigh);
             if (typeof fromCodeRangeLow === 'string') {
                 fromCodeRangeLow = fromCodeRangeLow.charCodeAt(0);
             }
@@ -108,5 +107,25 @@ Object.assign(TextConverter.prototype, {
         } else if (typeof from === 'string') {
             this.mapString(from, to);
         }
+    },
+    isUcOnly: function () {
+        var codepoint;
+        var char;
+        var uc = 0;
+        for (codepoint = 65; codepoint <= 90; codepoint += 1) {
+            char = String.fromCharCode(codepoint);
+            if (char in this.charMap) {
+                uc += 1;
+            }
+        }
+        var lc = 0;
+        for (codepoint = 97; codepoint <= 122; codepoint += 1) {
+            char = String.fromCharCode(codepoint);
+            if (char in this.charMap) {
+                lc += 1;
+            }
+        }
+        var result = uc >= 24 && lc <= 2; // heuristic
+        return result;
     },
 });

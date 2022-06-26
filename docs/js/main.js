@@ -72,11 +72,15 @@ var TextConverterPage = {
 
         this.converters.forEach(function (converter) {
             var option = document.createElement('option');
+            var sample = converter.convert(converter.name);
+            if (converter.isUcOnly()) {
+                sample = converter.convert(converter.name.toUpperCase());
+            }
             option.value = converter.name;
             if (converter.label) {
                 option.text = converter.label;
             } else {
-                option.text = converter.name + ' - ' + converter.convert(converter.name);
+                option.text = converter.name + ' - ' + sample;
             }
             this.elements.converter.appendChild(option);
         }.bind(this));
@@ -123,9 +127,6 @@ var TextConverterPage = {
                 event.key === 'PageUp' || event.key === 'PageDown') {
                 return;
             }
-            // if (!(event.key && (event.key === 'Backspace' || event.key.length === 1))) {
-            //     console.log(event);
-            // }
         }
 
         var zalgo = this.elements.zalgo.checked;
