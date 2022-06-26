@@ -47,7 +47,9 @@ var TextConverterPage = {
         } else if (transform === 'uppercase') {
             value = value.toUpperCase();
         }
-        value = converter.convert(value);
+        if (converter) {
+            value = converter.convert(value);
+        }
         if (flags && flags.zalgo) {
             value = this.transformZalgo(value);
         }
