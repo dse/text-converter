@@ -127,7 +127,7 @@ addTextConverter(new TextConverter({
                                     to: '!"#$%&\')(*+,-.\\0\u07c123456789:\u204f>=<\u2e2e@Ad\u2183b\u018e\ua7fbGHIJK\u2143M\u1d0eO\ua7fcp\u1d19\ua644TUVWXYZ]/[^_`Ad\u2184b\u0258\ua7fbgHijklm\u1d0eoqp\u1d19\ua645TUvwxYz}|{\u223d' } ]
 }));
 addTextConverter(new TextConverter({
-    name: 'Small Capitals', mappings: [ { lc: '\u1d00\u0299\u1d04\u1d05\u1d07\ua730\u0262\u029c\u026a\u1d0a\u1d0b\u029f\u1d0d\u0274\u1d0f\u1d18\ua7af\u0280\ua731\u1d1b\u1d1c\u1d20\u1d21\u028f\u1d22' } ]
+    name: 'Small Capitals', mappings: [ { lc: '\u1d00\u0299\u1d04\u1d05\u1d07\ua730\u0262\u029c\u026a\u1d0a\u1d0b\u029f\u1d0d\u0274\u1d0f\u1d18\ua7af\u0280\ua731\u1d1b\u1d1c\u1d20\u1d21x\u028f\u1d22' } ]
 }));
 addTextConverter(new TextConverter({
     name: 'Rock Dots', mappings: [ { from: 'AEIOUaeiouyYHhWwXxt-', to: '\u00c4\u00cb\u00cf\u00d6\u00dc\u00e4\u00eb\u00ef\u00f6\u00fc\u00ff\u0178\u1e26\u1e27\u1e84\u1e85\u1e8c\u1e8d\u1e97\u2e1a' } ]
