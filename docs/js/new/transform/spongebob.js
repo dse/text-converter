@@ -1,3 +1,4 @@
+// TODO: handle multi-character glyphs
 function spongebob(str) {
     let flag = true;
     let arr = Array.from(str.toLowerCase());
@@ -11,8 +12,6 @@ function spongebob(str) {
     return arr.join('');
 }
 
-if (typeof require !== 'undefined' &&
-    typeof module !== 'undefined' &&
-    require.main === module) {
-    console.log(spongebob('Hello, world!'));
+if (typeof module !== 'undefined') {
+    module.exports = spongebob;
 }

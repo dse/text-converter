@@ -6,3 +6,9 @@ const CIRCLED = {
     from: '*+-./=|\\><',
     to: '\u229b\u2295\u2296\u2299\u2298\u229c\u29b6\u29b8\u29c0\u29c1',
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        CIRCLED,
+    };
+}

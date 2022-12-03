@@ -8,3 +8,9 @@ const MANGA = {
     case: 'upper',
     uc: MANGA_UC,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        MANGA,
+    };
+}

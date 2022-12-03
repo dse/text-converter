@@ -5,3 +5,7 @@ const PARENTHESIZED = {
     from: ['1', '9'],
     to: '\u2474\u2475\u2476\u2477\u2478\u2479\u247a\u247b\u247c'
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = { PARENTHESIZED };
+}

@@ -3,3 +3,7 @@ const SMALL_CAPITALS = {
     name: 'Small Capitals',
     lc: SMALL_CAPITALS_LC,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = { SMALL_CAPITALS };
+}

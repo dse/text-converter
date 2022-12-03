@@ -8,3 +8,9 @@ const LADYBUG = {
     case: 'upper',
     uc: LADYBUG_UC,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        LADYBUG,
+    };
+}

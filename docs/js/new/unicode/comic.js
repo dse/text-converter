@@ -8,3 +8,9 @@ const COMIC = {
     case: 'upper',
     uc: COMIC_UC
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        COMIC,
+    };
+}

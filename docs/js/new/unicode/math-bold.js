@@ -10,3 +10,9 @@ const MATH_BOLD = {
     uc: MATH_BOLD_UC,
     lc: MATH_BOLD_LC,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        MATH_BOLD,
+    };
+}

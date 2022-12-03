@@ -7,3 +7,7 @@ const MATH_ITALIC = {
     uc: MATH_ITALIC_UC,
     lc: MATH_ITALIC_LC,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = { MATH_ITALIC };
+}

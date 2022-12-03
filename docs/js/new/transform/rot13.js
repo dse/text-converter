@@ -1,3 +1,4 @@
+// TODO: handle multi-character glyphs
 function rot13(str) {
     str = str.replace(/[A-Za-z]/g, function (char) {
         const code = char.charCodeAt(0);
@@ -10,8 +11,6 @@ function rot13(str) {
     return str;
 }
 
-if (typeof require !== 'undefined' &&
-    typeof module !== 'undefined' &&
-    require.main === module) {
-    console.log(rot13('Hello, world!'));
+if (typeof module !== 'undefined') {
+    module.exports = rot13;
 }

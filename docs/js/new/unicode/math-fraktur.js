@@ -13,3 +13,7 @@ const MATH_FRAKTUR = {
     uc: MATH_FRAKTUR_UC,
     lc: MATH_FRAKTUR_LC,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = { MATH_FRAKTUR };
+}

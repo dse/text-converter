@@ -15,3 +15,9 @@ const FULLWIDTH = {
     name: 'Fullwidth',
     printable: FULLWIDTH_ASCII,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        FULLWIDTH,
+    };
+}

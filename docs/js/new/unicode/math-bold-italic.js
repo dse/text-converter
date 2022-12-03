@@ -8,3 +8,9 @@ const MATH_BOLD_ITALIC = {
     uc: MATH_BOLD_ITALIC_UC,
     lc: MATH_BOLD_ITALIC_LC,
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        MATH_BOLD_ITALIC,
+    };
+}

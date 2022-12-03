@@ -4,3 +4,7 @@ const ROCK_DOTS = {
     name: 'Rock Dots',
     map: { [ROCK_DOTS_FROM]: ROCK_DOTS_TO },
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = { ROCK_DOTS };
+}
