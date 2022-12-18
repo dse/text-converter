@@ -1,3 +1,5 @@
 {
-    "esversion": 11
+    "esversion": 11,
+    "strict": "global",
+    "node": true
 }
