@@ -9,7 +9,9 @@ const ROCK_DOTS_TO = Array.from(
 
 const ROCK_DOTS = {
     name: 'Rock Dots',
-    map: { [ROCK_DOTS_FROM]: ROCK_DOTS_TO },
+    map: [
+        { from: ROCK_DOTS_FROM, to: ROCK_DOTS_TO },
+    ]
 };
 
 if (typeof module !== 'undefined') {
