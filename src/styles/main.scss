@@ -1,0 +1,35 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "./variables";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/forms";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/helpers";
+@import "../../node_modules/bootstrap/scss/utilities/api";
+
+.copied-indicator {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: auto;
+    background-color: $success;
+    color: white;
+    text-shadow: 1px 1px black;
+    padding: 0.5rem 1rem;
+    font-size: 150%;
+    &.flash {
+        bottom: 1rem;
+        opacity: 1.0;
+    }
+    &:not(.flash) {
+        bottom: -4rem;
+        opacity: 0.0;
+        transition: bottom 150ms 2000ms, opacity 1000ms 1000ms;
+    }
+}

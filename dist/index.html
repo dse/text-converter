@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/zalgo.js"></script>
+        <script src="js/main.js"></script>
+        <title>Text Converter</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center">
+                Text Converter
+            </h1>
+            <form>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="converter">Choose a Converter:</label>
+                            <select class="form-select" id="converter" name="converter">
+                                <option value="">None</option>
+                                <option value="circled">Circled</option>
+                                <option value="comic">Comic</option>
+                                <option value="manga">Manga</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="mb-3">
+                            <div class="mb-3 me-4 d-md-inline-block">
+                                <label class="form-label" for="caseTransform">Case Transform:</label>
+                                <select class="form-select d-inline-block w-auto" name="caseTransform" id="caseTransform">
+                                    <option value="">None</option>
+                                    <option value="lower">Lower</option>
+                                    <option value="upper">Upper</option>
+                                    <option value="spongebob">sPoNgEbOb</option>
+                                </select>
+                            </div>
+                            <div class="form-check mb-3 me-4 d-md-inline-block">
+                                <input class="form-check-input" type="checkbox" id="rot13" name="rot13" value="1">
+                                <label class="form-check-label" for="rot13">ROT13</label>
+                            </div>
+                            <div class="form-check mb-3 me-4 d-md-inline-block">
+                                <input class="form-check-input" type="checkbox" id="backwards" name="backwards" value="1">
+                                <label class="form-check-label" for="backwards">Backwards</label>
+                            </div>
+                            <div class="mb-3 me-4 d-md-inline-block">
+                                <span class="form-check d-inline-block">
+                                    <input class="form-check-input" type="checkbox" id="zalgo" name="zalgo" value="1">
+                                    <label class="form-check-label" for="zalgo">Zalgo</label>
+                                </span>
+                                <input type="number" class="form-control d-inline-block w-auto" id="zalgoAmount" name="zalgoAmount" min="1" max="20" value="5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="mb-3">
+                            <h2>
+                                Input
+                            </h2>
+                            <textarea rows="12" class="form-control" id="input" name="input" placeholder="Lorem ipsum dolor sit amet..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="mb-3">
+                            <h2>
+                                Output
+                            </h2>
+                            <div class="mb-3">
+                                <button id="copy" type="button" class="btn btn-primary">Copy</button>
+                            </div>
+                            <div class="mb-3">
+                                <textarea readonly rows="12" class="form-control" id="output" name="output"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="copiedIndicator" class="copied-indicator">
+            Copied!
+        </div>
+
+    </body>
+</html>

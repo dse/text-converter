@@ -1,0 +1,27 @@
+{
+  "name": "text-converter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx gulp sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dse/text-converter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dse/text-converter/issues"
+  },
+  "homepage": "https://github.com/dse/text-converter#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.1.0",
+    "node-sass": "^9.0.0"
+  }
+}
