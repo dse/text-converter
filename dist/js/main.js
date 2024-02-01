@@ -45,7 +45,7 @@ const converterArray = [
 
 // create the object { circled, circledNegative, comic, ... }
 const converters = converterArray.reduce(
-    (accum, next) => Object.assign(accum, { [next.converter.id]: next.converter }),
+    (accum, next) => Object.assign(accum, { [next.converter.name]: next.converter }),
     {}
 );
 
@@ -128,8 +128,13 @@ function setup() {
                 showThemAllTemplateElement.innerHTML
                                           .replace(/\{\{\s*id\s*\}\}/g, id)
                                           .replace(/\{\{\s*name\s*\}\}/g, name);
+        });
+    }
+
+    if (showThemAllElement && showThemAllTemplateElement) {
+        converterArray.forEach(({ id }) => {
             const copyButton = document.getElementById('copy-' + id);
-            copyButton?.addEventListener('click', function () {
+            copyButton.addEventListener('click', function () {
                 const textElement = document.getElementById('output-' + id);
                 navigator.clipboard.writeText(textElement.value).then(function () {
                     const indicator = document.getElementById('copiedIndicator');
@@ -145,7 +150,7 @@ function setup() {
     }
 
     copyButton.addEventListener('click', function () {
-        navigator.clipboard.writeText(inputTextArea.value).then(function () {
+        navigator.clipboard.writeText(outputTextArea.value).then(function () {
             const indicator = document.getElementById('copiedIndicator');
             if (!indicator) { return; }
             indicator.classList.add('flash');
@@ -326,7 +331,6 @@ function squared(text) {
 }
 
 const SQUARED_NEGATIVE_UC = Array.from('🅰🅱🅲🅳🅴🅵🅶🅷🅸🅹🅺🅻🅼🅽🅾🅿🆀🆁🆂🆃🆄🆅🆆🆇🆈🆉');
-console.log(SQUARED_NEGATIVE_UC.length);
 function squaredNegative(text) {
     return text.normalize("NFD").toUpperCase()
                .replace(/[A-Z]/gu, char => SQUARED_NEGATIVE_UC[char.codePointAt(0) - 65]);
