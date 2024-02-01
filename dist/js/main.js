@@ -63,6 +63,7 @@ function setup() {
     const outputTextArea      = document.getElementById('output');
     const copyButton          = document.getElementById('copy');
 
+    // populate the dropdown
     converterArray.forEach(({ converter, id, name }) => {
         const option = new Option();
         option.label = name;
