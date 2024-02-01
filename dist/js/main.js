@@ -16,6 +16,7 @@ const converters = {
     comic,
     fakeCyrillic,
     fullWidth,
+    inverted,
     ladybug,
     manga,
     mathBold,
@@ -23,6 +24,7 @@ const converters = {
     mathDoubleStruck,
     mathFraktur,
     mathFrakturBold,
+    mathItalic,
     mathMonospace,
     mathSans,
     mathSansBold,
@@ -30,6 +32,9 @@ const converters = {
     mathSansItalic,
     mathScriptBold,
     mathScript,
+    parenthesized,
+    reversed,
+    rockDots,
     smallCapitals,
     squared,
     squaredNegative,
@@ -39,6 +44,7 @@ const converters = {
 };
 
 window.addEventListener('load', setup);
+
 function setup() {
     const converterSelect     = document.getElementById('converter');
     const caseTransformSelect = document.getElementById('caseTransform');
@@ -197,6 +203,7 @@ const COMIC_UC = Array.from(
         '\u146b\u1587\u1515T\u144c\u142f\u15ef\u166d' +
         'Y\u1614',
 );
+
 function comic(text) {
     return text.normalize("NFD").toUpperCase().replace(/[A-Z]/g, function (letter) {
         return COMIC_UC[letter.codePointAt(0) - 65];
@@ -289,7 +296,23 @@ function fullWidth(text) {
     });
 }
 
+const INVERTED = Array.from(
+    '\u00a1"#$%\u214b,' +
+        '()*+\u2018-./' +
+        '01234567' +
+        '89:;<=>\u00bf' +
+        '@\u0250q\u0254p\u01dd\u025f\u0183' +
+        '\u0265\u0131\u027e\u029e\u05df\u026fuo' +
+        'db\u0279s\u0287n\ud800\udf21\u028d' +
+        'x\u028ez[\\]^_`\u0250q\u0254p\u01dd\u025f\u0183' +
+        '\u0265\u0131\u027e\u029e\u05df\u026fuo' +
+        'db\u0279s\u0287n\u028c\u028d' +
+        'x\u028ez{|}~'
+);
+
 function inverted(text) {
+    return text.normalize("NFD")
+               .replace(/./g, char => INVERTED[char.codePointAt(0) - 33] ?? char);
 }
 
 const LADYBUG_UC = Array.from("\ua34f\ua303\ua3f3\ua037\ua3c2\ua387\ua045\ua00d\ua024\ua4bb\ua018\ua492\ua3ad\ua224\ua0a6\u1598\ua1b0\ua2ea\ua31a\ua4c4\ua00e\ua4a6\ua150\ua267\ua329\ua074");
@@ -404,7 +427,31 @@ function mathSansBoldItalic(text) {
                .replace(/[A-Z]/g, char => MATH_SANS_BOLD_ITALIC_UC[char.codePointAt(0) - 65]);
 }
 
+const ROCK_DOTS = {
+    'A': '\u00c4',
+    'E': '\u00cb',
+    'I': '\u00cf',
+    'O': '\u00d6',
+    'U': '\u00dc',
+    'a': '\u00e4',
+    'e': '\u00eb',
+    'i': '\u00ef',
+    'o': '\u00f6',
+    'u': '\u00fc',
+    'y': '\u00ff',
+    'Y': '\u0178',
+    'H': '\u1e26',
+    'h': '\u1e27',
+    'W': '\u1e84',
+    'w': '\u1e85',
+    'X': '\u1e8c',
+    'x': '\u1e8d',
+    't': '\u1e97',
+    '-': '\u2e1a',
+};
+
 function rockDots(text) {
+    return text.normalize("NFD").replace(/./g, (char) => ROCK_DOTS[char] ?? char);
 }
 
 const SMALL_CAPITALS_LC = Array.from('\u1d00\u0299\u1d04\u1d05\u1d07\ua730\u0262\u029c\u026a\u1d0a\u1d0b\u029f\u1d0d\u0274\u1d0f\u1d18\ua7af\u0280\ua731\u1d1b\u1d1c\u1d20\u1d21x\u028f\u1d22');
@@ -508,4 +555,46 @@ const UPSIDE_DOWN = {
 };
 function upsideDown(text) {
     return text.normalize('NFD').replace(/./g, char => UPSIDE_DOWN[char] ?? char);
+}
+
+const MATH_ITALIC_UC = Array.from('\ud835\udc34\ud835\udc35\ud835\udc36\ud835\udc37\ud835\udc38\ud835\udc39\ud835\udc3a\ud835\udc3b\ud835\udc3c\ud835\udc3d\ud835\udc3e\ud835\udc3f\ud835\udc40\ud835\udc41\ud835\udc42\ud835\udc43\ud835\udc44\ud835\udc45\ud835\udc46\ud835\udc47\ud835\udc48\ud835\udc49\ud835\udc4a\ud835\udc4b\ud835\udc4c\ud835\udc4d');
+const MATH_ITALIC_LC = Array.from('\ud835\udc4e\ud835\udc4f\ud835\udc50\ud835\udc51\ud835\udc52\ud835\udc53\ud835\udc54\u210e\ud835\udc56\ud835\udc57\ud835\udc58\ud835\udc59\ud835\udc5a\ud835\udc5b\ud835\udc5c\ud835\udc5d\ud835\udc5e\ud835\udc5f\ud835\udc60\ud835\udc61\ud835\udc62\ud835\udc63\ud835\udc64\ud835\udc65\ud835\udc66\ud835\udc67');
+
+function mathItalic(text) {
+    return text.normalize("NFD")
+               .replace(/[A-Z]/g, char => MATH_ITALIC_UC[char.codePointAt(0) - 65] ?? char)
+               .replace(/[a-z]/g, char => MATH_ITALIC_LC[char.codePointAt(0) - 97] ?? char);
+}
+
+const PARENTHESIZED_UC = Array.from('\ud83c\udd10\ud83c\udd11\ud83c\udd12\ud83c\udd13\ud83c\udd14\ud83c\udd15\ud83c\udd16\ud83c\udd17\ud83c\udd18\ud83c\udd19\ud83c\udd1a\ud83c\udd1b\ud83c\udd1c\ud83c\udd1d\ud83c\udd1e\ud83c\udd1f\ud83c\udd20\ud83c\udd21\ud83c\udd22\ud83c\udd23\ud83c\udd24\ud83c\udd25\ud83c\udd26\ud83c\udd27\ud83c\udd28\ud83c\udd29');
+const PARENTHESIZED_LC = Array.from('\u249c\u249d\u249e\u249f\u24a0\u24a1\u24a2\u24a3\u24a4\u24a5\u24a6\u24a7\u24a8\u24a9\u24aa\u24ab\u24ac\u24ad\u24ae\u24af\u24b0\u24b1\u24b2\u24b3\u24b4\u24b5');
+const PARENTHESIZED_1_9 = Array.from('\u2474\u2475\u2476\u2477\u2478\u2479\u247a\u247b\u247c');
+
+function parenthesized(text) {
+    return text.normalize("NFD")
+               .replace(/./g, char =>
+                   PARENTHESIZED_UC[char.codePointAt(0) - 65] ??
+                       PARENTHESIZED_LC[char.codePointAt(0) - 97] ??
+                       PARENTHESIZED_1_9[char.codePointAt(0) - 49] ?? char);
+}
+
+const REVERSED = Array.from(
+    '!"#$%&\'' +
+        ')(*+,-.\\' +
+        '0\u07c1234567' +
+        '89:\u204f>=<\u2e2e' +
+        '@Ad\u2183b\u018e\ua7fbG' +
+        'HIJK\u2143M\u1d0eO' +
+        '\ua7fcp\u1d19\ua644TUVW' +
+        'XYZ]/[^_' +
+        '`Ad\u2184b\u0258\ua7fbg' +
+        'Hijklm\u1d0eo' +
+        'qp\u1d19\ua645TUvw' +
+        'xYz}|{\u223d'
+);
+
+function reversed(text) {
+    return text.normalize("NFD")
+               .replace(/./g, char =>
+                   REVERSED[char.codePointAt(0) - 33] ?? char);
 }
