@@ -7,12 +7,12 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="js/zalgo.js"></script>
         <script src="js/main.js"></script>
-        <title>Text Converter</title>
+        <title>Fancy Unicode Font Text Converter</title>
     </head>
     <body>
         <div class="container">
             <h1 class="text-center">
-                Text Converter
+                Fancy Unicode Font Text Converter
             </h1>
             <form>
                 <div class="row">
@@ -21,9 +21,6 @@
                             <label class="form-label" for="converter">Choose a Converter:</label>
                             <select class="form-select" id="converter" name="converter">
                                 <option value="">None</option>
-                                <option value="circled">Circled</option>
-                                <option value="comic">Comic</option>
-                                <option value="manga">Manga</option>
                             </select>
                         </div>
                     </div>
@@ -68,11 +65,17 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                         <div class="mb-3">
-                            <h2>
-                                Output
-                            </h2>
-                            <div class="mb-3">
-                                <button id="copy" type="button" class="btn btn-primary">Copy</button>
+                            <div class="row">
+                                <div class="col col-md-auto">
+                                    <h2>
+                                        Output
+                                    </h2>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <button id="copy" type="button" class="btn btn-primary">Copy</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <textarea readonly rows="12" class="form-control" id="output" name="output"></textarea>

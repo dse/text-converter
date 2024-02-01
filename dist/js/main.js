@@ -10,38 +10,43 @@
  * - https://lingojam.com/FancyFontGenerator%2CUnicodeText
  */
 
-const converters = {
-    circled,
-    circledNegative,
-    comic,
-    fakeCyrillic,
-    fullWidth,
-    inverted,
-    ladybug,
-    manga,
-    mathBold,
-    mathBoldItalic,
-    mathDoubleStruck,
-    mathFraktur,
-    mathFrakturBold,
-    mathItalic,
-    mathMonospace,
-    mathSans,
-    mathSansBold,
-    mathSansBoldItalic,
-    mathSansItalic,
-    mathScriptBold,
-    mathScript,
-    parenthesized,
-    reversed,
-    rockDots,
-    smallCapitals,
-    squared,
-    squaredNegative,
-    tai,
-    upsideDown,
-    yi,
-};
+const converterArray = [
+    { converter: circled,            id: 'circled',            name: 'Circled' },
+    { converter: circledNegative,    id: 'circledNegative',    name: 'Circled Negative' },
+    { converter: comic,              id: 'comic',              name: 'Comic' },
+    { converter: fakeCyrillic,       id: 'fakeCyrillic',       name: 'Fake Cyrillic' },
+    { converter: fullWidth,          id: 'fullWidth',          name: 'Full Width' },
+    { converter: inverted,           id: 'inverted',           name: 'Inverted' },
+    { converter: ladybug,            id: 'ladybug',            name: 'Ladybug' },
+    { converter: manga,              id: 'manga',              name: 'Manga' },
+    { converter: mathBold,           id: 'mathBold',           name: 'Math Bold' },
+    { converter: mathBoldItalic,     id: 'mathBoldItalic',     name: 'Math Bold Italic' },
+    { converter: mathDoubleStruck,   id: 'mathDoubleStruck',   name: 'Math Double Struck' },
+    { converter: mathFraktur,        id: 'mathFraktur',        name: 'Math Fraktur' },
+    { converter: mathFrakturBold,    id: 'mathFrakturBold',    name: 'Math Fraktur Bold' },
+    { converter: mathItalic,         id: 'mathItalic',         name: 'Math Italic' },
+    { converter: mathMonospace,      id: 'mathMonospace',      name: 'Math Monospace' },
+    { converter: mathSans,           id: 'mathSans',           name: 'Math Sans' },
+    { converter: mathSansBold,       id: 'mathSansBold',       name: 'Math Sans Bold' },
+    { converter: mathSansBoldItalic, id: 'mathSansBoldItalic', name: 'Math Sans BoldItalic' },
+    { converter: mathSansItalic,     id: 'mathSansItalic',     name: 'Math Sans Italic' },
+    { converter: mathScriptBold,     id: 'mathScriptBold',     name: 'Math Script Bold' },
+    { converter: mathScript,         id: 'mathScript',         name: 'Math Script' },
+    { converter: parenthesized,      id: 'parenthesized',      name: 'Parenthesized' },
+    { converter: reversed,           id: 'reversed',           name: 'Reversed' },
+    { converter: rockDots,           id: 'rockDots',           name: 'Rock Dots' },
+    { converter: smallCapitals,      id: 'smallCapitals',      name: 'Small Capitals' },
+    { converter: squared,            id: 'squared',            name: 'Squared' },
+    { converter: squaredNegative,    id: 'squaredNegative',    name: 'Squared Negative' },
+    { converter: tai,                id: 'tai',                name: 'Tai' },
+    { converter: upsideDown,         id: 'upsideDown',         name: 'Upside Down' },
+    { converter: yi,                 id: 'yi',                 name: 'Yi' },
+];
+
+const converters = converterArray.reduce(
+    (accum, next) => Object.assign(accum, { [next.converter.id]: next.converter }),
+    {}
+);
 
 if (typeof window !== 'undefined') {
     window.addEventListener('load', setup);
@@ -57,6 +62,13 @@ function setup() {
     const inputTextArea       = document.getElementById('input');
     const outputTextArea      = document.getElementById('output');
     const copyButton          = document.getElementById('copy');
+
+    converterArray.forEach(({ converter, id, name }) => {
+        const option = new Option();
+        option.label = name;
+        option.value = id;
+        converterSelect.add(option);
+    });
 
     let converterName = JSON.parse(localStorage.getItem('textConverter.converterName'));
     let caseTransform = JSON.parse(localStorage.getItem('textConverter.caseTransform'));
