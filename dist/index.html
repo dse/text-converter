@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
                         <div class="mb-3">
-                            <label class="form-label" for="converter">Choose a Converter:</label>
+                            <label class="form-label" for="converter">Choose Your Favorite Converter:</label>
                             <select class="form-select" id="converter" name="converter">
                                 <option value="">None</option>
                             </select>
@@ -83,8 +83,31 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="showThemAll">
+                </div>
+
             </form>
-        </div>
+
+        </div><!-- .container -->
+
+        <template id="showThemAllTemplate">
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col col-md-auto">
+                        <h2>
+                            {{name}}
+                        </h2>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <button name="copy-button" id="copy-{{id}}" type="button" class="btn btn-primary">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <output style="height: auto;" readonly class="form-control" id="output-{{id}}" name="output-{{id}}"></output>
+            </div>
+        </template>
 
         <div id="copiedIndicator" class="copied-indicator">
             Copied!

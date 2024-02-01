@@ -120,6 +120,30 @@ function setup() {
     inputTextArea.addEventListener('input',  function () { update(); });
     inputTextArea.addEventListener('change', function () { update(); });
 
+    const showThemAllElement = document.getElementById('showThemAll');
+    const showThemAllTemplateElement = document.getElementById('showThemAllTemplate');
+    if (showThemAllElement && showThemAllTemplateElement) {
+        converterArray.forEach(({ id, name }) => {
+            showThemAllElement.innerHTML +=
+                showThemAllTemplateElement.innerHTML
+                                          .replace(/\{\{\s*id\s*\}\}/g, id)
+                                          .replace(/\{\{\s*name\s*\}\}/g, name);
+            const copyButton = document.getElementById('copy-' + id);
+            copyButton?.addEventListener('click', function () {
+                const textElement = document.getElementById('output-' + id);
+                navigator.clipboard.writeText(textElement.value).then(function () {
+                    const indicator = document.getElementById('copiedIndicator');
+                    if (!indicator) { return; }
+                    indicator.classList.add('flash');
+                    /*jshint -W030 */
+                    indicator.offsetHeight; // trigger a reflow
+                    /*jshint +W030 */
+                    indicator.classList.remove('flash');
+                });
+            });
+        });
+    }
+
     copyButton.addEventListener('click', function () {
         navigator.clipboard.writeText(inputTextArea.value).then(function () {
             const indicator = document.getElementById('copiedIndicator');
@@ -131,6 +155,15 @@ function setup() {
             indicator.classList.remove('flash');
         });
     });
+
+    function showThemAll() {
+        converterArray.forEach(({ id, name, converter }) => {
+            const textElement = document.getElementById('output-' + id);
+            if (textElement) {
+                textElement.innerHTML = converter(inputTextArea.value);
+            }
+        });
+    }
 
     function convert(text) {
         if (rot13Flag) {
@@ -181,6 +214,8 @@ function setup() {
         localStorage.setItem('textConverter.zalgoAmount',   JSON.stringify(zalgoAmount));
         localStorage.setItem('textConverter.backwardsFlag', JSON.stringify(backwardsFlag));
         localStorage.setItem('textConverter.inputText',     inputTextArea.value);
+
+        showThemAll();
     }
 
     update();
