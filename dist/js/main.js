@@ -649,15 +649,14 @@ function reversed(text) {
 
 if (typeof require !== 'undefined' && typeof module !== 'undefined') {
     if (require.main === module) {
-        console.log(spongebob('Now is the time for all good men.'));
-    }
-    for (const converter of Object.keys(converters).sort().map(name => converters[name])) {
-        console.log(`======= ${converter.name} =======`);
-        console.log(converter(Array.from(' !"#$%&\'()*+,-./').join(' ')));
-        console.log(converter(Array.from('0123456789:;<=>?').join(' ')));
-        console.log(converter(Array.from('@ABCDEFGHIJKLMNO').join(' ')));
-        console.log(converter(Array.from('PQRSTUVWXYZ[\\]^_').join(' ')));
-        console.log(converter(Array.from('`abcdefghijklmno').join(' ')));
-        console.log(converter(Array.from('pqrstuvwxyz{|}~').join(' ')));
+        for (const converter of Object.keys(converters).sort().map(name => converters[name])) {
+            console.log(`======= ${converter.name} =======`);
+            console.log(converter(Array.from(' !"#$%&\'()*+,-./').join(' ')));
+            console.log(converter(Array.from('0123456789:;<=>?').join(' ')));
+            console.log(converter(Array.from('@ABCDEFGHIJKLMNO').join(' ')));
+            console.log(converter(Array.from('PQRSTUVWXYZ[\\]^_').join(' ')));
+            console.log(converter(Array.from('`abcdefghijklmno').join(' ')));
+            console.log(converter(Array.from('pqrstuvwxyz{|}~').join(' ')));
+        }
     }
 }
