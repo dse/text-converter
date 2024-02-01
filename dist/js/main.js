@@ -43,6 +43,7 @@ const converterArray = [
     { converter: yi,                 id: 'yi',                 name: 'Yi' },
 ];
 
+// create the object { circled, circledNegative, comic, ... }
 const converters = converterArray.reduce(
     (accum, next) => Object.assign(accum, { [next.converter.id]: next.converter }),
     {}
