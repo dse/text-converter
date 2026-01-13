@@ -1,0 +1,29 @@
+{
+  "name": "text-converter",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dse/text-converter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dse/text-converter/issues"
+  },
+  "homepage": "https://github.com/dse/text-converter#readme",
+  "dependencies": {
+    "gulp": "^5.0.1",
+    "gulp-nunjucks-render": "^2.2.3",
+    "gulp-sass": "^6.0.1",
+    "nunjucks": "^3.2.4",
+    "rollup": "^4.55.1",
+    "sass": "^1.97.2"
+  }
+}
