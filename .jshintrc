@@ -68,7 +68,7 @@
     "nonstandard":      false,
     "phantom":          false,
     "prototypejs":      false,
-    "quint":            false,
+    "qunit":            false,
     "rhino":            false,
     "shelljs":          false,
     "typed":            false,
