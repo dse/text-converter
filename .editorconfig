@@ -53,6 +53,9 @@ root = true
         indent_size = 8
         indent_style = tab
 
+[docker-compose.yml]
+        indent_size = 4
+
 # styles managed by things like npm, yarn, composer, etc.
 [{package.json,package-lock.json,yarn.lock}]
         indent_size = 2

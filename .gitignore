@@ -42,3 +42,4 @@ nytprof
 nytprof.out
 tmp/
 *:Zone.Identifier
+*_flymake.*
