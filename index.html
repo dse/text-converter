@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <title>Text Converter</title>
+        <link rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+        <div class="container text-converter__container">
+            <h1 class="text-converter__heading mt-0 mb-0 text-center">
+                Text Converter
+            </h1>
+            <form class="text-converter__form" id="textConverterForm">
+                <div class="text-converter__filter">
+                    <label class="text-converter__label text-converter__label--horizontal">
+                        <span class="label-area">Filter:</span>
+                        <select name="filter">
+                        </select>
+                    </label>
+                </div>
+                <div class="text-converter__direction">
+                    <label class="text-converter__label text-converter__label--horizontal">
+                        <span class="label-area">Direction:</span>
+                        <select name="direction">
+                            <option value="forward">Forward</option>
+                            <option value="backward">Backward</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="text-converter__zalgo">
+                    <label class="text-converter__label text-converter__label--horizontal">
+                        <span class="label-area">Zalgo:</span>
+                        <select name="zalgo">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>5</option>
+                            <option>8</option>
+                            <option>13</option>
+                            <option>21</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="text-converter__case">
+                    <label class="text-converter__label text-converter__label--horizontal">
+                        <span class="label-area">Case:</span>
+                        <select name="case">
+                            <option value="asis">As Is</option>
+                            <option value="lower">Lower</option>
+                            <option value="upper">Upper</option>
+                            <option value="spongebob">SpOnGeBoB</option>
+                        </select>
+                    </label>
+                </div>
+                <label class="text-converter__input">
+                    <span class="label-area d-block mb-1">Enter Your Text:</span>
+                    <textarea class="d-block w-100 textarea" name="input"></textarea>
+                </label>
+                <label class="text-converter__output">
+                    <span class="label-area d-block mb-1">
+                        <span class="label-area__text">Converted Text:</span>
+                        <span class="label-area__button">
+                            <button name="copy">Copy</button>
+                        </span>
+                        <span id="copiedMessage" class="label-area__message">
+                            Copied!
+                        </span>
+                    </span>
+                    <textarea class="d-block w-100 textarea" name="output" readonly></textarea>
+                </label>
+            </form>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
