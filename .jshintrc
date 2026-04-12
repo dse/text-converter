@@ -4,12 +4,12 @@
     "bitwise":          true,
     "curly":            true,
     "eqeqeq":           true,
-    "esversion":        11,             // 6 = 2015; ...; 11 = 2020
+    "esversion":        11,     // 6 = 2015; ...; 11 = 2020
     "forin":            true,
     "freeze":           true,
     "futurehostile":    true,
     "globals":          {},
-    "latedef":          "nofunc",       // "nofunc" allows function hosting
+    "latedef":          "nofunc", // "nofunc" allows function hosting
     "leanswitch":       true,
     // "maxcomplexity": 0,
     // "maxdepth":      0,
@@ -26,7 +26,7 @@
     "regexpu":          false,
     "shadow":           "outer",
     "singleGroups":     false,
-    "strict":           "implied",      // "implied" for modules; i use "global" for cjs code
+    "strict":           "global", // "implied" for modules; i use "global" for cjs code
     "trailingcomma":    false,
     "undef":            true,
     "unused":           true,
@@ -57,15 +57,15 @@
 
     // Environments
     // https://jshint.com/docs/options/#environments
-    "browser":          false,          // see also devel
+    "browser":          true,   // see also devel
     "browserify":       false,
     "couch":            false,
-    "devel":            false,
+    "devel":            true,
     "dojo":             false,
     "jasmine":          false,
     "jquery":           false,
     "mocha":            false,
-    "module":           false,
+    "module":           false,  // be sure to change the "strict" option above.
     "mootools":         false,
     "node":             false,
     "nonstandard":      false,
