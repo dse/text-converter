@@ -1,4 +1,4 @@
-/*jshint esversion: 7, undef: true */
+"use strict";
 
 /**
  * printable ASCII:
@@ -107,7 +107,6 @@ function serifBoldItalic(text) {
     text = text.normalize("NFD");
     text = text.replace(/[A-Z]/g, char => SERIF_BOLD_ITALIC_UC[char.codePointAt(0) - 65]);
     text = text.replace(/[a-z]/g, char => SERIF_BOLD_ITALIC_LC[char.codePointAt(0) - 97]);
-    text = text.replace(/[0-9]/g, char => SERIF_BOLD_ITALIC_DIGITS[char.codePointAt(0) - 48]);
     text = text.normalize("NFC");
     return text;
 }
@@ -233,18 +232,18 @@ function superscript(text) {
     return text;
 }
 
-const INVERTED_LC = [...""];
-const INVERTED_UC = [...""];
-const INVERTED_DIGITS = [...""];
+// const INVERTED_LC = [...""];
+// const INVERTED_UC = [...""];
+// const INVERTED_DIGITS = [...""];
 function inverted(text) {
     text = text.normalize("NFD");
     text = text.normalize("NFC");
     return text;
 }
 
-const REVERSED_LC = [...""];
-const REVERSED_UC = [...""];
-const REVERSED_DIGITS = [...""];
+// const REVERSED_LC = [...""];
+// const REVERSED_UC = [...""];
+// const REVERSED_DIGITS = [...""];
 function reversed(text) {
     text = text.normalize("NFD");
     text = text.normalize("NFC");
@@ -399,9 +398,6 @@ const conversionList = [
     { "functionName": "rockDots",             name: "Rock Dots", },
 ];
 
-function backwards(text) {
-}
-
 const ZALGO_DOWN = [
     '\u0316', '\u0317', '\u0318', '\u0319', '\u031c', '\u031d', '\u031e',
     '\u031f', '\u0320', '\u0324', '\u0325', '\u0326', '\u0329', '\u032a',
@@ -425,8 +421,6 @@ const ZALGO_UP = [
     '\u036c', '\u036d', '\u036e', '\u036f',
 ];
 const ZALGO = [...ZALGO_UP, ...ZALGO_DOWN, ...ZALGO_MIDDLE];
-
-const RX_GRAPHEME = /\P{M}\p{M}*/gu;
 
 function zalgo(text, amount) {
     return text.replace(/\P{M}\p{M}*/gu, function (grapheme) {
