@@ -327,6 +327,43 @@ function rockDots(text) {
                             const idx = ROCK_DOTS_LOOKUP.from.indexOf(char);
                             return idx < 0 ? char : ROCK_DOTS_LOOKUP.to[idx];
                         });
+    text = text.normalize("NFC");
+    return text;
+}
+
+const FAKE_CYRILLIC_UC = [..."\u0414\u0411\u0480\u2181\u0404F\u0411\u041d\u0406\u0408\u040cL\u041c\u0418\u0424\u0420Q\u042f\u0405\u0413\u0426V\u0429\u0416\u0427Z"];
+const FAKE_CYRILLIC_LC = [..."\u0430\u044a\u0441\u2181\u044df\u0411\u0402\u0456\u0458\u043al\u043c\u0438\u043e\u0440q\u0453\u0455\u0442\u0446v\u0448\u0445\u040ez"];
+function fakeCyrillic(text) {
+    text = text.normalize("NFD");
+    text = text.replace(/[A-Z]/g, char => FAKE_CYRILLIC_UC[char.codePointAt(0) - 65]);
+    text = text.replace(/[a-z]/g, char => FAKE_CYRILLIC_LC[char.codePointAt(0) - 97]);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const INVERTED_ASCII = [..."\u00a1\"#$%\u214b,()*+\u2018-./",
+                        ..."0123456789:;<=>\u00bf",
+                        ..."@\u0250q\u0254p\u01dd\u025f\u0183\u0265\u0131\u027e\u029e\u05df\u026fuo",
+                        ..."db\u0279s\u0287n\ud800\udf21\u028dx\u028ez[\\]^_",
+                        ..."`\u0250q\u0254p\u01dd\u025f\u0183\u0265\u0131\u027e\u029e\u05df\u026fuo",
+                        ..."db\u0279s\u0287n\u028c\u028dx\u028ez{|}~"];
+function inverted(text) {
+    text = text.normalize("NFD");
+    text = text.replace(/[!-~]/g, char => INVERTED_ASCII[char.codePointAt(0) - 33]);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const REVERSED_ASCII = [..."!\"#$%&\')(*+,-.\\",
+                        ..."0\u07c123456789:\u204f>=<\u2e2e",
+                        ..."@Ad\u2183b\u018e\ua7fbGHIJK\u2143M\u1d0eO",
+                        ..."\ua7fcp\u1d19\ua644TUVWXYZ]/[^_",
+                        ..."`Ad\u2184b\u0258\ua7fbgHijklm\u1d0eo",
+                        ..."qp\u1d19\ua645TUvwxYz}|{\u223d"];
+function reversed(text) {
+    text = text.normalize("NFD");
+    text = text.replace(/[!-~]/g, char => REVERSED_ASCII[char.codePointAt(0) - 33]);
+    text = text.normalize("NFC");
     return text;
 }
 
@@ -351,6 +388,7 @@ const conversionFunctions = {
     circledNegative,
     subscript,
     superscript,
+    fakeCyrillic,
     inverted,
     reversed,
     parenthesized,
@@ -385,6 +423,7 @@ const conversionList = [
     { "functionName": "circledNegative",      name: "Circled (negative)", },
     { "functionName": "subscript",            name: "Subscript", },
     { "functionName": "superscript",          name: "Superscript", },
+    { "functionName": "fakeCyrillic",         name: "Fake Cyrillic", },
     { "functionName": "inverted",             name: "Inverted", },
     { "functionName": "reversed",             name: "Reversed", },
     { "functionName": "parenthesized",        name: "Parenthesized", },
@@ -406,11 +445,6 @@ const ZALGO_DOWN = [
     '\u0347', '\u0348', '\u0349', '\u034d', '\u034e', '\u0353', '\u0354',
     '\u0355', '\u0356', '\u0359', '\u035a',
 ];
-const ZALGO_MIDDLE = [
-    '\u0315', '\u031b', '\u0321', '\u0322', '\u0327', '\u0328', '\u0334',
-    '\u0335', '\u0336', '\u0337', '\u0338', '\u0340', '\u0341', '\u0358',
-    '\u035c', '\u035d', '\u035e', '\u035f', '\u0360', '\u0361', '\u0362',
-];
 const ZALGO_UP = [
     '\u0301', '\u0302', '\u0303', '\u0304', '\u0305', '\u0306', '\u0307',
     '\u0308', '\u0309', '\u030a', '\u030b', '\u030c', '\u030d', '\u030e',
@@ -420,7 +454,7 @@ const ZALGO_UP = [
     '\u0365', '\u0366', '\u0367', '\u0368', '\u0369', '\u036a', '\u036b',
     '\u036c', '\u036d', '\u036e', '\u036f',
 ];
-const ZALGO = [...ZALGO_UP, ...ZALGO_DOWN, ...ZALGO_MIDDLE];
+const ZALGO = [...ZALGO_UP, ...ZALGO_DOWN /*, ...ZALGO_MIDDLE */];
 
 // Some sets of characters don't render with zalgo in windows, no
 // major loss to exclude them.
@@ -576,8 +610,11 @@ function update(form) {
         text = zalgo(text, zalgoAmount);
     }
 
-    const direction = form.direction.value;
-    if (direction === "backward") {
+    let backward = form.direction.value === "backward";
+    if (filterName === "inverted" || filterName === "reversed") {
+        backward = !backward;
+    }
+    if (backward) {
         text = backwards(text);
     }
 
