@@ -1,0 +1,104 @@
+html {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    justify-content: start;
+    > body {
+        flex: 1 0 auto;
+    }
+}
+body {
+    padding: var(--gap);
+    display: flex;
+    flex-flow: column nowrap;
+    > .text-converter__container {
+        flex: 1 0 auto;
+    }
+}
+.text-converter__container {
+    display: flex;
+    flex-flow: column nowrap;
+    > .text-converter__heading {
+        flex: 0 0 auto;
+    }
+    > .text-converter__form {
+        flex: 1 0 auto;
+    }
+    gap: var(--gap);
+}
+.text-converter__form {
+    display: flex;
+    flex-flow: column nowrap;
+    > .text-converter__params {
+        flex: 0 0 auto;
+    }
+    > .text-converter__text-input {
+        flex: 1 0 auto;
+    }
+    > .text-converter__text-output {
+        flex: 1 0 auto;
+    }
+    gap: var(--gap);
+}
+
+.text-converter__text-input,
+.text-converter__text-output {
+    display: flex;
+    flex-flow: column nowrap;
+    > .form-label {
+        flex: 0 0 auto;
+    }
+    > .form-textarea {
+        flex: 1 0 auto;
+    }
+    gap: calc(var(--gap) * 0.25);
+}
+
+.text-converter__params {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    gap: calc(var(--gap) * 0.5);
+}
+@media (min-width: 576px) {
+    .text-converter__params {
+        display: grid;
+        grid-template-areas: "filter filter filter" "direction zalgo case";
+        > .text-converter__filter { grid-area: filter; }
+        > .text-converter__direction { grid-area: direction; }
+        > .text-converter__zalgo { grid-area: zalgo; }
+        > .text-converter__case { grid-area: case; }
+        gap: var(--gap);
+    }
+}
+@media (min-width: 1200px) {
+    .text-converter__params {
+        grid-template-areas: "filter direction zalgo case";
+    }
+}
+
+.text-converter__filter,
+.text-converter__direction,
+.text-converter__zalgo,
+.text-converter__case {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    gap: calc(var(--gap) * 0.5);
+    > .form-label {
+        flex: 0 0 auto;
+    }
+    > .form-select {
+        flex: 1 0 auto;
+    }
+}
+
+.text-converter__text-output__horizontal-group {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: start;
+    align-items: baseline;
+    gap: var(--gap);
+}

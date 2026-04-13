@@ -1,0 +1,29 @@
+.form-input, .form-select, .form-textarea, .form-button {
+    appearance: none;
+    padding: 0.25rem 0.5rem;
+}
+.form-input, .form-select, .form-textarea {
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    display: block;
+}
+.form-select {
+    background-image: var(--select-background-image);
+    background-repeat: no-repeat;
+    background-position: right 0.25rem center;
+    background-size: 1rem 0.75rem;
+    padding-right: 1.5rem;
+}
+.form-button {
+    border: 1px solid transparent;
+    background-color: var(--emphasis);
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    border-radius: 0.5rem;
+}

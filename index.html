@@ -7,7 +7,10 @@
         <title>
             Fancy Unicode Font Text Converter
         </title>
+        <link rel="stylesheet" href="variables.css" />
         <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="forms.css" />
+        <link rel="stylesheet" href="layout.css" />
     </head>
     <body>
         <div class="container text-converter__container">
@@ -15,26 +18,28 @@
                 Fancy Unicode Font Text Converter
             </h1>
             <form class="text-converter__form" id="textConverterForm">
-                <div class="text-converter__filter">
-                    <label class="text-converter__label text-converter__label--horizontal">
-                        <span class="label-area">Filter:</span>
-                        <select name="filter">
+                <div class="text-converter__params">
+                    <div class="text-converter__filter">
+                        <label class="form-label" for="filterSelect">
+                            Filter:
+                        </label>
+                        <select class="form-select" id="filterSelect" name="filter">
                         </select>
-                    </label>
-                </div>
-                <div class="text-converter__direction">
-                    <label class="text-converter__label text-converter__label--horizontal">
-                        <span class="label-area">Direction:</span>
-                        <select name="direction">
+                    </div>
+                    <div class="text-converter__direction">
+                        <label class="form-label" for="directionSelect">
+                            Direction:
+                        </label>
+                        <select class="form-select" id="directionSelect" name="direction">
                             <option value="forward">Forward</option>
                             <option value="backward">Backward</option>
                         </select>
-                    </label>
-                </div>
-                <div class="text-converter__zalgo">
-                    <label class="text-converter__label text-converter__label--horizontal">
-                        <span class="label-area">Zalgo:</span>
-                        <select name="zalgo">
+                    </div>
+                    <div class="text-converter__zalgo">
+                        <label class="form-label" for="zalgoSelect">
+                            Zalgo:
+                        </label>
+                        <select class="form-select" id="zalgoSelect" name="zalgo">
                             <option>0</option>
                             <option>1</option>
                             <option>2</option>
@@ -44,35 +49,37 @@
                             <option>13</option>
                             <option>21</option>
                         </select>
-                    </label>
-                </div>
-                <div class="text-converter__case">
-                    <label class="text-converter__label text-converter__label--horizontal">
-                        <span class="label-area">Case:</span>
-                        <select name="case">
+                    </div>
+                    <div class="text-converter__case">
+                        <label class="form-label" for="caseSelect">
+                            Case:
+                        </label>
+                        <select class="form-select" id="caseSelect" name="case">
                             <option value="asis">Don't Change</option>
                             <option value="lower">Lower Case</option>
                             <option value="upper">Upper Case</option>
                             <option value="spongebob">SpOnGeBoB</option>
                         </select>
-                    </label>
+                    </div>
                 </div>
-                <label class="text-converter__input">
-                    <span class="label-area d-block mb-1">Enter Your Text:</span>
-                    <textarea class="d-block w-100 textarea" name="input"></textarea>
-                </label>
-                <label class="text-converter__output">
-                    <span class="label-area d-block mb-1">
-                        <span class="label-area__text">Converted Text:</span>
-                        <span class="label-area__button">
-                            <button name="copy">Copy</button>
-                        </span>
-                        <span id="copiedMessage" class="label-area__message">
+                <div class="text-converter__text-input">
+                    <label class="form-label" for="textInput">
+                        Enter Your Text:
+                    </label>
+                    <textarea class="form-textarea" id="textInput" name="input"></textarea>
+                </div>
+                <div class="text-converter__text-output">
+                    <div class="text-converter__text-output__label-group">
+                        <label class="form-label-text" for="textOutput">
+                            Converted Text:
+                        </label>
+                        <button class="form-button"  name="copy">Copy</button>
+                        <span id="copiedMessage" class="copied-message">
                             Copied!
                         </span>
-                    </span>
-                    <textarea class="d-block w-100 textarea" name="output" readonly></textarea>
-                </label>
+                    </div>
+                    <textarea class="form-textarea" id="textOutput" name="output" readonly></textarea>
+                </div>
             </form>
         </div>
         <script src="main.js"></script>
