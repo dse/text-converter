@@ -62,7 +62,7 @@ body {
     align-items: stretch;
     gap: calc(var(--gap) * 0.5);
 }
-@media (min-width: 576px) {
+@media (min-width: 384px) {
     .text-converter__params {
         display: grid;
         grid-template-areas: "filter filter" "direction zalgo" "case rot13";
