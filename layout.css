@@ -65,24 +65,38 @@ body {
 @media (min-width: 576px) {
     .text-converter__params {
         display: grid;
-        grid-template-areas: "filter filter filter" "direction zalgo case";
+        grid-template-areas: "filter filter" "direction zalgo" "case rot13";
         > .text-converter__filter { grid-area: filter; }
         > .text-converter__direction { grid-area: direction; }
         > .text-converter__zalgo { grid-area: zalgo; }
         > .text-converter__case { grid-area: case; }
+        > .text-converter__rot13 { grid-area: rot13; }
+        gap: var(--gap);
+    }
+}
+@media (min-width: 768px) {
+    .text-converter__params {
+        display: grid;
+        grid-template-areas: "filter filter filter filter" "direction zalgo case rot13";
+        > .text-converter__filter { grid-area: filter; }
+        > .text-converter__direction { grid-area: direction; }
+        > .text-converter__zalgo { grid-area: zalgo; }
+        > .text-converter__case { grid-area: case; }
+        > .text-converter__rot13 { grid-area: rot13; }
         gap: var(--gap);
     }
 }
 @media (min-width: 1200px) {
     .text-converter__params {
-        grid-template-areas: "filter direction zalgo case";
+        grid-template-areas: "filter direction zalgo case rot13";
     }
 }
 
 .text-converter__filter,
 .text-converter__direction,
 .text-converter__zalgo,
-.text-converter__case {
+.text-converter__case,
+.text-converter__rot13 {
     display: flex;
     flex-flow: row nowrap;
     align-items: baseline;

@@ -483,6 +483,26 @@ const ZALGO_BLACKLIST = [
     return cp < 32 || cp > 126;
 });
 
+function rot13(text) {
+    text = text.normalize("NFD");
+    text = text.replace(/[A-Za-z]/g, char => {
+        let cp = char.codePointAt(0);
+        if (cp >= 65 && cp <= 77) {
+            cp += 13;
+        } else if (cp >= 78 && cp <= 90) {
+            cp -= 13;
+        } else if (cp >= 97 && cp <= 109) {
+            cp += 13;
+        } else if (cp >= 110 && cp <= 122) {
+            cp -= 13;
+        }
+        char = String.fromCodePoint(cp);
+        return char;
+    });
+    text = text.normalize("NFC");
+    return text;
+}
+
 function zalgo(text, amount) {
     return text.replace(/\P{M}\p{M}*/gu, function (grapheme) {
         const codepoint = grapheme.codePointAt(0);
@@ -528,7 +548,7 @@ function populate(form) {
     for (const conversion of conversionList) {
         const { functionName, name } = conversion;
         const fn = conversionFunctions[functionName];
-        const label = name + " — " + fn(name);
+        const label = name + " - " + fn("Hello");
         const option = new Option(label, functionName);
         select.appendChild(option);
     }
@@ -548,6 +568,10 @@ function populate(form) {
     if (localStorage.getItem("textConverterCase") != null) {
         const value = JSON.parse(localStorage.getItem("textConverterCase"));
         form.case.value = value;
+    }
+    if (localStorage.getItem("textConverterRot13") != null) {
+        const value = JSON.parse(localStorage.getItem("textConverterRot13"));
+        form.rot13.value = value;
     }
     if (localStorage.getItem("textConverterInput") != null) {
         const value = JSON.parse(localStorage.getItem("textConverterInput"));
@@ -581,12 +605,17 @@ function update(form) {
     localStorage.setItem("textConverterDirection", JSON.stringify(form.direction.value));
     localStorage.setItem("textConverterZalgo",     JSON.stringify(form.zalgo.value));
     localStorage.setItem("textConverterCase",      JSON.stringify(form["case"].value));
+    localStorage.setItem("textConverterRot13",     JSON.stringify(form.rot13.value));
     localStorage.setItem("textConverterInput",     JSON.stringify(form.input.value));
     const filterName = form.filter.value;
     const filterFn = filterName === "" ? null : conversionFunctions[filterName];
     let text = form.input.value;
     text = text.normalize("NFD");
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    if (Number(form.rot13.value)) {
+        text = rot13(text);
+    }
 
     const letterCase = form["case"].value;
     switch (letterCase) {
