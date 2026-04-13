@@ -422,8 +422,40 @@ const ZALGO_UP = [
 ];
 const ZALGO = [...ZALGO_UP, ...ZALGO_DOWN, ...ZALGO_MIDDLE];
 
+// Some sets of characters don't render with zalgo in windows, no
+// major loss to exclude them.
+const ZALGO_BLACKLIST = [
+    ...FULL_WIDTH_ASCII,
+    ...SQUARED_UC,
+    ...SQUARED_NEGATIVE_UC,
+    ...CIRCLED_LC,
+    ...CIRCLED_UC,
+    ...CIRCLED_DIGITS,
+    ...CIRCLED_NEGATIVE_LC,
+    ...CIRCLED_NEGATIVE_UC,
+    ...CIRCLED_NEGATIVE_DIGITS,
+    ...PARENTHESIZED_LC,
+    ...PARENTHESIZED_UC,
+    ...PARENTHESIZED_DIGITS,
+    ...COMIC_UC,
+    ...MANGA_UC,
+    ...LADYBUG_UC,
+    ...YI_UC,
+    ...TAI_UC,
+].filter(function (char) {
+    // Some characters in the sets above include unconverted
+    // characters.
+    const cp = char.codePointAt(0);
+    return cp < 32 || cp > 126;
+});
+
 function zalgo(text, amount) {
     return text.replace(/\P{M}\p{M}*/gu, function (grapheme) {
+        const codepoint = grapheme.codePointAt(0);
+        const char = String.fromCodePoint(codepoint);
+        if (ZALGO_BLACKLIST.includes(char)) {
+            return grapheme;
+        }
         for (let i = 0; i < amount; i += 1) {
             grapheme += ZALGO[Math.floor(Math.random() * ZALGO.length)];
         }
