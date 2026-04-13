@@ -318,7 +318,7 @@ function smallCaps(text) {
 
 const ROCK_DOTS_LOOKUP = {
     from: [..."AEIOUaeiouyYHhWwXxt-"],
-    to: [..."ÄËÏÖÜäëïöüÿŸḦḧẄẅẌẍẗ⸚"]
+    to:   [..."ÄËÏÖÜäëïöüÿŸḦḧẄẅẌẍẗ⸚"]
 };
 function rockDots(text) {
     text = text.normalize("NFD");
@@ -449,27 +449,45 @@ function spongebob(text) {
 }
 
 if (typeof window !== "undefined") {
-    console.log("we have a winder");
     const form = document.getElementById("textConverterForm");
     populate(form);
 }
 
 function populate(form) {
-    console.log("populatin'");
     const select = form.filter;
     while (select.firstChild) {
-        console.log("killin' a baby");
         select.removeChild(select.firstChild);
     }
     select.appendChild(new Option("None", ""));
     for (const conversion of conversionList) {
         const { functionName, name } = conversion;
-        console.log(functionName, name);
         const fn = conversionFunctions[functionName];
         const label = name + " — " + fn(name);
         const option = new Option(label, functionName);
         select.appendChild(option);
     }
+
+    if (localStorage.getItem("textConverterFilter") != null) {
+        const value = JSON.parse(localStorage.getItem("textConverterFilter"));
+        form.filter.value = value;
+    }
+    if (localStorage.getItem("textConverterDirection") != null) {
+        const value = JSON.parse(localStorage.getItem("textConverterDirection"));
+        form.direction.value = value;
+    }
+    if (localStorage.getItem("textConverterZalgo") != null) {
+        const value = JSON.parse(localStorage.getItem("textConverterZalgo"));
+        form.zalgo.value = value;
+    }
+    if (localStorage.getItem("textConverterCase") != null) {
+        const value = JSON.parse(localStorage.getItem("textConverterCase"));
+        form.case.value = value;
+    }
+    if (localStorage.getItem("textConverterInput") != null) {
+        const value = JSON.parse(localStorage.getItem("textConverterInput"));
+        form.input.value = value;
+    }
+
     form.addEventListener("change", () => update(form));
     form.addEventListener("keypress", () => update(form));
     form.addEventListener("keydown", () => update(form));
@@ -493,15 +511,18 @@ function populate(form) {
 }
 
 function update(form) {
+    localStorage.setItem("textConverterFilter",    JSON.stringify(form.filter.value));
+    localStorage.setItem("textConverterDirection", JSON.stringify(form.direction.value));
+    localStorage.setItem("textConverterZalgo",     JSON.stringify(form.zalgo.value));
+    localStorage.setItem("textConverterCase",      JSON.stringify(form["case"].value));
+    localStorage.setItem("textConverterInput",     JSON.stringify(form.input.value));
     const filterName = form.filter.value;
-    console.log(filterName);
     const filterFn = filterName === "" ? null : conversionFunctions[filterName];
-    console.log(filterFn);
     let text = form.input.value;
     text = text.normalize("NFD");
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    const letterCase = form.case.value;
+    const letterCase = form["case"].value;
     switch (letterCase) {
     case "lower":
         text = text.toLowerCase();
