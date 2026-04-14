@@ -398,11 +398,11 @@ function alien(text) {
     return text;
 }
 
-const MIRROR_ASCII = [..."~{l}ƹʏxwvuƚꙅɹpqoᴎm|ʞꞁiʜǫᎸɘbɔdɒ´_^[\\]ƸYXWVUTꙄЯỌꟼOͶM⅃⋊ႱIHᎮꟻƎᗡƆᙠA@⸮<=>:980/.-,+*()'%$#\"!"];
+const MIRROR_ASCII = [..."~}|{ƹʏxwvuƚꙅɹpqoᴎm|ʞꞁiʜǫᎸɘbɔdɒ´_^[\\]ƸYXWVUTꙄЯỌꟼOͶM⅃⋊ႱIHᎮꟻƎᗡƆᙠA@⸮<=>;:0123456789/.-,+*()'&%$#\"!"];
 MIRROR_ASCII.reverse();
 function mirror(text) {
     text = text.normalize("NFD");
-    text = text.replace(/[!-~]/g, char => MIRROR_ASCII[char.codePointAt(0) - 32]);
+    text = text.replace(/[!-~]/g, char => MIRROR_ASCII[char.codePointAt(0) - 33]);
     text = text.normalize("NFC");
     return text;
 }
@@ -992,7 +992,11 @@ function populate(form) {
     for (const conversion of conversionList) {
         const { functionName, name } = conversion;
         const fn = conversionFunctions[functionName];
-        const label = name + " - " + fn("Hello");
+        let textSample = fn("Hello");
+        if (functionName === "inverted" || functionName === "reversed" || functionName === "mirror") {
+            textSample = backwards(textSample);
+        }
+        const label = name + " - " + textSample;
         const option = new Option(label, functionName);
         select.appendChild(option);
     }
