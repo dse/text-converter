@@ -1052,16 +1052,9 @@ function populate(form) {
     update(form);
 }
 
-function update(form) {
-    localStorage.setItem("textConverterFilter",    JSON.stringify(form.filter.value));
-    localStorage.setItem("textConverterDirection", JSON.stringify(form.direction.value));
-    localStorage.setItem("textConverterZalgo",     JSON.stringify(form.zalgo.value));
-    localStorage.setItem("textConverterCase",      JSON.stringify(form["case"].value));
-    localStorage.setItem("textConverterRot13",     JSON.stringify(form.rot13.value));
-    localStorage.setItem("textConverterInput",     JSON.stringify(form.input.value));
+function convertText(form, text) {
     const filterName = form.filter.value;
     const filterFn = filterName === "" ? null : conversionFunctions[filterName];
-    let text = form.input.value;
     text = text.normalize("NFD");
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -1101,7 +1094,23 @@ function update(form) {
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     text = text.normalize("NFC");
+    return text;
+}
+
+function update(form) {
+    localStorage.setItem("textConverterFilter",    JSON.stringify(form.filter.value));
+    localStorage.setItem("textConverterDirection", JSON.stringify(form.direction.value));
+    localStorage.setItem("textConverterZalgo",     JSON.stringify(form.zalgo.value));
+    localStorage.setItem("textConverterCase",      JSON.stringify(form["case"].value));
+    localStorage.setItem("textConverterRot13",     JSON.stringify(form.rot13.value));
+    localStorage.setItem("textConverterInput",     JSON.stringify(form.input.value));
+    let text = form.input.value;
+    text = convertText(form, text);
     form.output.value = text;
+    const sampleText = ("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.\n" +
+                        "The quick brown fox jumps over the lazy dog.");
+    form.input.placeholder = sampleText;
+    form.output.placeholder = convertText(form, sampleText);
 }
 
 function uc(text, chars) {
