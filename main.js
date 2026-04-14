@@ -246,24 +246,6 @@ function superscript(text) {
     return text;
 }
 
-// const INVERTED_LC = [...""];
-// const INVERTED_UC = [...""];
-// const INVERTED_DIGITS = [...""];
-function inverted(text) {
-    text = text.normalize("NFD");
-    text = text.normalize("NFC");
-    return text;
-}
-
-// const REVERSED_LC = [...""];
-// const REVERSED_UC = [...""];
-// const REVERSED_DIGITS = [...""];
-function reversed(text) {
-    text = text.normalize("NFD");
-    text = text.normalize("NFC");
-    return text;
-}
-
 const PARENTHESIZED_LC = [..."⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵"];
 const PARENTHESIZED_UC = [..."🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩"];
 const PARENTHESIZED_DIGITS = [..."0⑴⑵⑶⑷⑸⑹⑺⑻⑼"];
@@ -770,7 +752,6 @@ const conversionFunctions = {
     circledNegative,
     subscript,
     superscript,
-    fakeCyrillic,
     inverted,
     reversed,
     parenthesized,
@@ -782,6 +763,7 @@ const conversionFunctions = {
     lowerCaseToSmallCaps,
     smallCaps,
     rockDots,
+    fakeCyrillic,
     symbols,
     currency,
     bent,
