@@ -170,12 +170,17 @@ function doubleStruck(text) {
 
 const SQUARED_UC = [..."🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉"];
 const SQUARED_LOOKUP = {
-    from: [..."+-./\\*"],
-    to:   [..."⊞⊟⊡⧄⧅⧆"],
+    "+": "⊞",
+    "-": "⊟",
+    ".": "⊡",
+    "/": "⧄",
+    "\\": "⧅",
+    "*": "⧆"
 };
 function squared(text) {
     text = text.normalize("NFD");
     text = text.replace(/[A-Za-z]/g, char => SQUARED_UC[char.toUpperCase().codePointAt(0) - 65]);
+    text = text.replace(/./g, char => SQUARED_LOOKUP[char] ?? char);
     text = text.normalize("NFC");
     return text;
 }
@@ -192,19 +197,23 @@ const CIRCLED_LC = [..."ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡ�
 const CIRCLED_UC = [..."ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ"];
 const CIRCLED_DIGITS = [..."⓪①②③④⑤⑥⑦⑧⑨"];
 const CIRCLED_LOOKUP = {
-    from: [..."*+-./=|\\><"],
-    to:   [..."⊛⊕⊖⊙⊘⊜⦶⦸⧀⧁"],
+    "*": "⊛",
+    "+": "⊕",
+    "-": "⊖",
+    ".": "⊙",
+    "/": "⊘",
+    "=": "⊜",
+    "|": "⦶",
+    "\\": "⦸",
+    "<": "⧀",
+    ">": "⧁"
 };
 function circled(text) {
     text = text.normalize("NFD");
     text = text.replace(/[A-Z]/g, char => CIRCLED_UC[char.codePointAt(0) - 65]);
     text = text.replace(/[a-z]/g, char => CIRCLED_LC[char.codePointAt(0) - 97]);
     text = text.replace(/[0-9]/g, char => CIRCLED_DIGITS[char.codePointAt(0) - 48]);
-    text = text.replace(/(?:[\xd800-\xdbff][\xdc00-\xdfff]|[^\xd800-\xdfff])/g,
-                        function (char) {
-                            const idx = CIRCLED_LOOKUP.from.indexOf(char);
-                            return idx < 0 ? char : CIRCLED_LOOKUP.to[idx];
-                        });
+    text = text.replace(/./g,     char => CIRCLED_LOOKUP[char] ?? char);
     text = text.normalize("NFC");
     return text;
 }
@@ -328,16 +337,29 @@ function smallCaps(text) {
 }
 
 const ROCK_DOTS_LOOKUP = {
-    from: [..."AEIOUaeiouyYHhWwXxt-"],
-    to:   [..."ÄËÏÖÜäëïöüÿŸḦḧẄẅẌẍẗ⸚"]
+    "A": "Ä",
+    "E": "Ë",
+    "I": "Ï",
+    "O": "Ö",
+    "U": "Ü",
+    "a": "ä",
+    "e": "ë",
+    "i": "ï",
+    "o": "ö",
+    "u": "ü",
+    "y": "ÿ",
+    "Y": "Ÿ",
+    "H": "Ḧ",
+    "h": "ḧ",
+    "W": "Ẅ",
+    "w": "ẅ",
+    "X": "Ẍ",
+    "x": "ẍ",
+    "t": "ẗ"
 };
 function rockDots(text) {
     text = text.normalize("NFD");
-    text = text.replace(/(?:[\xd800-\xdbff][\xdc00-\xdfff]|[^\xd800-\xdfff])/g,
-                        function (char) {
-                            const idx = ROCK_DOTS_LOOKUP.from.indexOf(char);
-                            return idx < 0 ? char : ROCK_DOTS_LOOKUP.to[idx];
-                        });
+    text = text.replace(/./g, char => ROCK_DOTS_LOOKUP[char] ?? char);
     text = text.normalize("NFC");
     return text;
 }
