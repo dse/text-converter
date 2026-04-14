@@ -465,7 +465,7 @@ const SQUIGGLE_4_UC = [..."ÄßÇÐÈ£GHÌJKLMñÖþQR§†ÚVW×¥Z"];
 const SQUIGGLE_4_LC = [..."åß¢Ðê£ghïjklmñðþqr§†µvwx¥z"];
 function squiggle4(text) {
     text = text.normalize("NFD");
-    text = uc(text, SQUIGGLE_3_UC);
+    text = uc(text, SQUIGGLE_4_UC);
     text = lc(text, SQUIGGLE_4_LC);
     text = text.normalize("NFC");
     return text;
