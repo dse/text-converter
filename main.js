@@ -488,7 +488,7 @@ const WIGGLY_LC = [..."ค๖¢໓ēfງhiวkl๓ຖ໐p๑rŞtนงຟxฯຊ
 function wiggly(text) {
     text = text.normalize("NFD");
     text = uc(text, WIGGLY_UC);
-    text = uc(text, WIGGLY_LC);
+    text = lc(text, WIGGLY_LC);
     text = text.normalize("NFC");
     return text;
 }
@@ -594,7 +594,7 @@ function lefty(text) {
 const SHAKY_UC  = [..."ꋫꃃꏸꁕꍟꄘꁍꑛꂑꀭꀗ꒒ꁒꁹꆂꉣꁸ꒓ꌚ꓅ꐇꏝꅐꇓꐟꁴ"];
 function shaky(text) {
     text = text.normalize("NFD");
-    text = uc(text, SHAKY_UC);
+    text = ucOnly(text, SHAKY_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -602,7 +602,7 @@ function shaky(text) {
 const NARROW_UC = [..."ꍏꌃꉓꀸꍟꎇꁅꃅꀤꀭꀘ꒒ꂵꈤꂦꉣꆰꋪꌗ꓄ꀎꃴꅏꊼꌩꁴ"];
 function narrow(text) {
     text = text.normalize("NFD");
-    text = uc(text, NARROW_UC);
+    text = ucOnly(text, NARROW_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -610,7 +610,7 @@ function narrow(text) {
 const STINGY_UC = [..."ꁲꋰꀯꂠꈼꄞꁅꍩꂑ꒻ꀗ꒒ꂵꋊꂦꉣꁷꌅꌚꋖꐇꀰꅏꇒꐞꁴ"];
 function stingy(text) {
     text = text.normalize("NFD");
-    text = uc(text, STINGY_UC);
+    text = ucOnly(text, STINGY_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -618,7 +618,7 @@ function stingy(text) {
 const HIEROGLYPHIC_UC  = [..."ԹՅՇԺȝԲԳɧɿʝƙʅʍՌԾρφՐՏԵՄעաՃՎՀ"];
 function hieroglyphic(text) {
     text = text.normalize("NFD");
-    text = uc(text, HIEROGLYPHIC_UC);
+    text = ucOnly(text, HIEROGLYPHIC_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -626,7 +626,7 @@ function hieroglyphic(text) {
 const ORIENTAL_UC = [..."ᏗᏰፈᎴᏋᎦᎶᏂᎥᏠᏦᏝᎷᏁᎧᎮᎤᏒᏕᏖᏬᏉᏇጀᎩፚ"];
 function oriental(text) {
     text = text.normalize("NFD");
-    text = uc(text, ORIENTAL_UC);
+    text = ucOnly(text, ORIENTAL_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -635,8 +635,8 @@ const T3XT_UC     = [..."48(D3F9H!JK1MN0PQR57UVWXY2"];
 const T3XT_LC     = [..."48(d3f9h!jk1mn0pqr57uvwxy2"];
 function t3xt(text) {
     text = text.normalize("NFD");
-    text = uc(text, ORIENTAL_UC);
-    text = lc(text, ORIENTAL_LC);
+    text = uc(text, T3XT_UC);
+    text = lc(text, T3XT_LC);
     text = text.normalize("NFC");
     return text;
 }
@@ -644,7 +644,7 @@ function t3xt(text) {
 const ORTHODOX_UC = [..."@฿ςÐΞךּĝĦ¡∂қĺmמθÞΘя§‡טעשּׂЖצּζ"];
 function orthodox(text) {
     text = text.normalize("NFD");
-    text = uc(text, ORTHODOX_UC);
+    text = ucOnly(text, ORTHODOX_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -652,7 +652,7 @@ function orthodox(text) {
 const FANCEE_UC   = [..."નЪ૮ԁ૯ԲցસіڙқԼறהଇϷ૧Я૬Ҭμνயϰϓｚ"];
 function fancee(text) {
     text = text.normalize("NFD");
-    text = uc(text, FANCEE_UC);
+    text = ucOnly(text, FANCEE_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -670,7 +670,7 @@ function currency2(text) {
 const CHESS_UC      = [..."♝bҫ₫ҼҒᏩӈ♙ᏧҠӀ₥ӣoҎգԻֆҭմ∨ഢҲұℤ"];
 function chess(text) {
     text = text.normalize("NFD");
-    text = uc(text, CHESS_UC);
+    text = ucOnly(text, CHESS_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -678,7 +678,7 @@ function chess(text) {
 const YODA_UC       = [..."ลв¢∂эƒφђเנкℓми๏קợяร†µ√ωҗýž"];
 function yoda(text) {
     text = text.normalize("NFD");
-    text = uc(text, YODA_UC);
+    text = ucOnly(text, YODA_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -686,7 +686,7 @@ function yoda(text) {
 const FAHRENHEIT_UC = [..."ꋬꉉ℃ꌛ℮℉ꍌꈚꊛꋒ㏍ꅤꀪꁣꇩꀆꆰꋪꈛ꓄ꀀ℣ꂸꊩꌦꍈ"];
 function fahrenheit(text) {
     text = text.normalize("NFD");
-    text = uc(text, FAHRENHEIT_UC);
+    text = ucOnly(text, FAHRENHEIT_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -694,7 +694,7 @@ function fahrenheit(text) {
 const WISDOM_UC     = [..."λßȻɖεʃĢħίĵκιɱɴΘρƣરȘτƲνώΧϓՀ"];
 function wisdom(text) {
     text = text.normalize("NFD");
-    text = uc(text, WISDOM_UC);
+    text = ucOnly(text, WISDOM_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -702,7 +702,7 @@ function wisdom(text) {
 const HOURGLASS_UC  = [..."A♭꒞꒯㉹f꒸♬ﭐ꒻kLѪո♡рզrՖ†ﮠvա꒾վՀ"];
 function hourglass(text) {
     text = text.normalize("NFD");
-    text = uc(text, HOURGLASS_UC);
+    text = ucOnly(text, HOURGLASS_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -710,7 +710,7 @@ function hourglass(text) {
 const SLIM_UC       = [..."ᗩᗷᑢᕲᘿᖴᘜᕼᓰᒚKᒪᘻᘉᓍᕵᕴᖇSᖶᑘᐺᘺ᙭ᖻᗱ"];
 function slim(text) {
     text = text.normalize("NFD");
-    text = uc(text, SLIM_UC);
+    text = ucOnly(text, SLIM_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -718,7 +718,7 @@ function slim(text) {
 const FAKE_HEBREW_UC = [..."ค๒ς๔єŦﻮђเןкɭ๓ภ๏קợгรՇยשฬאץչ"];
 function fakeHebrew(text) {
     text = text.normalize("NFD");
-    text = uc(text, FAKE_HEBREW_UC);
+    text = ucOnly(text, FAKE_HEBREW_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -726,7 +726,7 @@ function fakeHebrew(text) {
 const CURLY_UC       = [..."ǟɮƈɖɛʄɢɦɨʝӄʟʍռօքզʀֆȶʊʋաӼʏʐ"];
 function curly(text) {
     text = text.normalize("NFD");
-    text = uc(text, CURLY_UC);
+    text = ucOnly(text, CURLY_UC);
     text = text.normalize("NFC");
     return text;
 }
@@ -777,8 +777,6 @@ const conversionFunctions = {
     squiggle2,
     squiggle3,
     squiggle4,
-
-    // NEW
     anchor,
     wiggly,
     crissCross,
@@ -789,6 +787,26 @@ const conversionFunctions = {
     curvy3,
     fakeEthiopian,
     stroked,
+    umbrella,
+    delta,
+    lefty,
+    shaky,
+    narrow,
+    stingy,
+    hieroglyphic,
+    oriental,
+    t3xt,
+    orthodox,
+    fancee,
+    currency2,
+    chess,
+    yoda,
+    fahrenheit,
+    wisdom,
+    hourglass,
+    slim,
+    fakeHebrew,
+    curly,
 };
 
 const conversionList = [
@@ -847,6 +865,26 @@ const conversionList = [
     { "functionName": "curvy3",               "name": "Curvy 3" },
     { "functionName": "fakeEthiopian",        "name": "Fake Ethiopian" },
     { "functionName": "stroked",              "name": "Stroked" },
+    { "functionName": "umbrella",             "name": "Umbrella" },
+    { "functionName": "delta",                "name": "Delta" },
+    { "functionName": "lefty",                "name": "Lefty" },
+    { "functionName": "shaky",                "name": "Shaky" },
+    { "functionName": "narrow",               "name": "Narrow" },
+    { "functionName": "stingy",               "name": "Stingy" },
+    { "functionName": "hieroglyphic",         "name": "Hieroglyphic" },
+    { "functionName": "oriental",             "name": "Oriental" },
+    { "functionName": "t3xt",                 "name": "T3xt" },
+    { "functionName": "orthodox",             "name": "Orthodox" },
+    { "functionName": "fancee",               "name": "Fancee" },
+    { "functionName": "currency2",            "name": "Currency 2" },
+    { "functionName": "chess",                "name": "Chess" },
+    { "functionName": "yoda",                 "name": "Yoda" },
+    { "functionName": "fahrenheit",           "name": "Fahrenheit" },
+    { "functionName": "wisdom",               "name": "Wisdom" },
+    { "functionName": "hourglass",            "name": "Hourglass" },
+    { "functionName": "slim",                 "name": "Slim" },
+    { "functionName": "fakeHebrew",           "name": "FakeHebrew" },
+    { "functionName": "curly",                "name": "Curly" },
 ];
 
 const ZALGO_DOWN = [
