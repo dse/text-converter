@@ -1,18 +1,12 @@
 "use strict";
 
 /**
- * printable ASCII:
+ * JavaScript code for the Fancy Unicode Font Text Converter.
+ *
+ * printable ASCII for copy/paste testing:
+ *
  * !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
- *
- * used:
- *     https://qaz.wtf/u/
- *     https://textfancy.com/font-converter/
- *     https://convertcase.net/unicode-text-converter/
- *
- * not used:
- *     https://www.textconverter.net/
- *     https://www.babelstone.co.uk/Unicode/text.html
- *     http://unicodetextconverter.top/
+ * 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
  */
 
 const FRAKTUR_UC = [..."𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ"];
@@ -336,30 +330,14 @@ function smallCaps(text) {
     return text;
 }
 
-const ROCK_DOTS_LOOKUP = {
-    "A": "Ä",
-    "E": "Ë",
-    "I": "Ï",
-    "O": "Ö",
-    "U": "Ü",
-    "a": "ä",
-    "e": "ë",
-    "i": "ï",
-    "o": "ö",
-    "u": "ü",
-    "y": "ÿ",
-    "Y": "Ÿ",
-    "H": "Ḧ",
-    "h": "ḧ",
-    "W": "Ẅ",
-    "w": "ẅ",
-    "X": "Ẍ",
-    "x": "ẍ",
-    "t": "ẗ"
-};
+const ROCK_DOTS_UC = [..."ÄḄĊḊЁḞĠḦЇJḲḶṀṄÖṖQṚṠṪÜṾẄẌŸŻ"];
+const ROCK_DOTS_LC = [..."äḅċḋëḟġḧïjḳḷṁṅöṗqṛṡẗüṿẅẍÿż"];
+const ROCK_DOTS_DIGITS = [..."012ӟ456789"];
 function rockDots(text) {
     text = text.normalize("NFD");
-    text = text.replace(/./g, char => ROCK_DOTS_LOOKUP[char] ?? char);
+    text = uc(text, ROCK_DOTS_UC);
+    text = lc(text, ROCK_DOTS_LC);
+    text = digits(text, ROCK_DOTS_DIGITS);
     text = text.normalize("NFC");
     return text;
 }
@@ -368,8 +346,8 @@ const FAKE_CYRILLIC_UC = [..."ДБҀↁЄFБНІЈЌLМИФРQЯЅГЦVЩЖЧZ"]
 const FAKE_CYRILLIC_LC = [..."аъсↁэfБЂіјкlмиорqѓѕтцvшхЎz"];
 function fakeCyrillic(text) {
     text = text.normalize("NFD");
-    text = text.replace(/[A-Z]/g, char => FAKE_CYRILLIC_UC[char.codePointAt(0) - 65]);
-    text = text.replace(/[a-z]/g, char => FAKE_CYRILLIC_LC[char.codePointAt(0) - 97]);
+    text = uc(text, FAKE_CYRILLIC_UC);
+    text = lc(text, FAKE_CYRILLIC_LC);
     text = text.normalize("NFC");
     return text;
 }
@@ -400,6 +378,376 @@ function reversed(text) {
     return text;
 }
 
+const SYMBOLS_UC = [..."𖤬ꔪꛕ𖤀𖤟ꘘꚽꛅꛈꚠ𖤰ꚳ𖢑ꛘ𖣠ㄗꚩ𖦪ꕷ𖢧ꚶꚴꛃ𖤗ꚲꛉ"];
+const SYMBOLS_LC = [..."𖤬ꔪꛕ𖤀𖤟ꘘꚽꛅꛈꚠ𖤰ꚳ𖢑ꛘ𖣠ㄗꚩ𖦪ꕷ𖢧ꚶꚴꛃ𖤗ꚲꛉ"];
+function symbols(text) {
+    text = text.normalize("NFD");
+    text = uc(text, SYMBOLS_UC);
+    text = lc(text, SYMBOLS_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CURRENCY_UC = [..."₳฿₵ĐɆ₣₲ⱧłJ₭Ⱡ₥₦Ø₱QⱤ₴₮ɄV₩ӾɎⱫ"];
+function currency(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, CURRENCY_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const BENT_DIGITS = [..."⊘𝟙ϩӠ५ƼϬ7𝟠९"];
+const BENT_UC     = [..."Ⱥβ↻ᎠƐƑƓǶįلҠꝈⱮហටφҨའϚͲԱỼచჯӋɀ"];
+const BENT_LC     = [..."ąҍçժҽƒցհìʝҟӀʍղօքզɾʂէմѵա×վՀ"];
+function bent(text) {
+    text = text.normalize("NFD");
+    text = uc(text, BENT_UC);
+    text = lc(text, BENT_LC);
+    text = digits(text, BENT_DIGITS);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const ALIEN_UC = [..."ᗩᗷᑢᕲᘿᖴᘜᕼᓰᒚ", "ᖽᐸ", ..."ᒪᘻᘉᓍᕵᕴᖇSᖶᑘᐺᘺ᙭ᖻᗱ"];
+function alien(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, ALIEN_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const MIRROR_ASCII = [..."~{l}ƹʏxwvuƚꙅɹpqoᴎm|ʞꞁiʜǫᎸɘbɔdɒ´_^[\\]ƸYXWVUTꙄЯỌꟼOͶM⅃⋊ႱIHᎮꟻƎᗡƆᙠA@⸮<=>:980/.-,+*()'%$#\"!"];
+MIRROR_ASCII.reverse();
+function mirror(text) {
+    text = text.normalize("NFD");
+    text = text.replace(/[!-~]/g, char => MIRROR_ASCII[char.codePointAt(0) - 32]);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const GREEK_LC = [..."αв¢∂єƒgнιנкℓмησρqяѕтυνωχуz"];
+function greek(text) {
+    text = text.normalize("NFD");
+    text = lcOnly(text, GREEK_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CURVE_UC = [..."ᗩᗷᑕᗪEᖴGᕼIᒍKᒪᗰᑎOᑭᑫᖇᔕTᑌᐯᗯ᙭Yᘔ"];
+function curve(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, CURVE_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const BRUSH_UC = [..."ǟɮƈɖɛʄɢɦɨʝӄʟʍռօքզʀֆȶʊʋաӼʏʐ"];
+function brush(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, BRUSH_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const AGE_OLD_UC = [..."ᎯᏰᏨᎠᏋᎰᎶᏂᎥᏠᏦᏝᎷᏁᎧᎮᎤᏒᏕᏖᏬᏉᏇᎲᎩፚ"];
+function ageOld(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, AGE_OLD_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const SQUIGGLE_1_UC = [..."ค๒ς๔єŦﻮђเןкɭ๓ภ๏קợгรՇยשฬאץչ"];
+const SQUIGGLE_2_UC = [..."ąცƈɖɛʄɠɧıʝƙƖɱŋơ℘զཞʂɬų۷ῳҳყʑ"];
+const SQUIGGLE_3_UC = [..."ค๖¢໓ēfງhiวkl๓ຖ໐p๑rŞtนงຟxฯຊ"];
+function squiggle1(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, SQUIGGLE_1_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+function squiggle2(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, SQUIGGLE_2_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+function squiggle3(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, SQUIGGLE_3_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const SQUIGGLE_4_UC = [..."ÄßÇÐÈ£GHÌJKLMñÖþQR§†ÚVW×¥Z"];
+const SQUIGGLE_4_LC = [..."åß¢Ðê£ghïjklmñðþqr§†µvwx¥z"];
+function squiggle4(text) {
+    text = text.normalize("NFD");
+    text = uc(text, SQUIGGLE_3_UC);
+    text = lc(text, SQUIGGLE_4_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const ANCHOR_DIGITS = [..."⊘𝟙ϩӠ५ƼϬ789"];
+const ANCHOR_UC = [..."Ⱥβ↻ᎠƐƑƓǶįلҠꝈⱮហටφҨའϚͲԱỼచჯӋɀ"];
+const ANCHOR_LC = [..."ąҍçժҽƒցհìʝҟӀʍղօքզɾʂէմѵա×վՀ"];
+function anchor(text) {
+    text = text.normalize("NFD");
+    text = uc(text, ANCHOR_UC);
+    text = lc(text, ANCHOR_LC);
+    text = digits(text, ANCHOR_DIGITS);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const WIGGLY_UC = [..."ค๖¢໓ēfງhiวkl๓ຖ໐p๑rŞtนงຟxฯຊ"];
+const WIGGLY_LC = [..."ค๖¢໓ēfງhiวkl๓ຖ໐p๑rŞtนงຟxฯຊ"];
+function wiggly(text) {
+    text = text.normalize("NFD");
+    text = uc(text, WIGGLY_UC);
+    text = uc(text, WIGGLY_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CRISS_CROSS_UC = [..."₳฿₵ĐɆ₣₲ⱧłJ₭Ⱡ₥₦Ø₱QⱤ₴₮ɄV₩ӾɎⱫ"];
+function crissCross(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, CRISS_CROSS_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const GLITCH_UC = [..."ꭿꞴꞒDEꟻGꞪIꞲꞢꝆMꞐꝊꝔꝖꮢꞨꮦUꝞꝠꭓꝨZ"];
+const GLITCH_LC = [..."aꞵꞓdꬲꝭgꜧꭵjꞣꝇꝳꝴꭴꝓꝙꞧꞩtuꝟꝡꭗꝩz"];
+function glitch(text) {
+    text = text.normalize("NFD");
+    text = uc(text, GLITCH_UC);
+    text = lc(text, GLITCH_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const FAKE_CYRILLIC_2_UC = [..."ДѢҀDЗFGњIJКLMЙФPQЯSҬЦVШЖӲZ"];
+const FAKE_CYRILLIC_2_LC = [..."ӓѣҁdЭfgћїjКlmђѳpqГsҭЧѵШxӳz"];
+function fakeCyrillic2(text) {
+    text = text.normalize("NFD");
+    text = uc(text, FAKE_CYRILLIC_2_UC);
+    text = lc(text, FAKE_CYRILLIC_2_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CURVY_1_UC = [..."ค๒ƈɗﻉिﻭɦٱﻝᛕɭ๓กѻρ۹ɼรՇપ۷ฝซץչ"];
+function curvy1(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, CURVY_1_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CURVY_2_UC = [..."αв¢∂єƒﻭнιנкℓмησρ۹яѕтυνωχуչ"];
+function curvy2(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, CURVY_2_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CURVY_3_UC = [..."ค๒ς๔єŦﻮђเןкɭ๓ภ๏קợгรՇยשฬאץչ"];
+function curvy3(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, CURVY_3_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const FAKE_ETHIOPIAN_UC = [..."ልጌርዕቿቻኗዘጎጋጕረጠክዐየዒዪነፕሁሀሠሸሃጊ"];
+function fakeEthiopian(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, FAKE_ETHIOPIAN_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const STROKED_UC = [..."ȺɃȻĐɆFǤĦƗɈꝀŁMNØⱣꝖɌSŦᵾVWXɎƵ"];
+const STROKED_LC = [..."Ⱥƀȼđɇfǥħɨɉꝁłmnøᵽꝗɍsŧᵾvwxɏƶ"];
+const STROKED_DIGITS = [..."01ƻ3456789"];
+function stroked(text) {
+    text = text.normalize("NFD");
+    text = uc(text, STROKED_UC);
+    text = lc(text, STROKED_LC);
+    text = digits(text, STROKED_DIGITS);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const UMBRELLA_DIGITS = [..."⓪➊➋➌➍➎➏➐➑➒"];
+const UMBRELLA_UC = [..."ꍏ♭☾◗€Ϝ❡♄♗♪ϰ↳♔♫⊙ρ☭☈ⓢ☂☋✓ω⌘☿☡"];
+function umbrella(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, UMBRELLA_UC);
+    text = digits(text, UMBRELLA_DIGITS);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const DELTA_UC = [..."ΔβĆĐ€₣ǤĦƗĴҜŁΜŇØƤΩŘŞŦỮVŴЖ¥Ž"];
+function delta(text) {
+    text = text.normalize("NFD");
+    text = ucOnly(text, DELTA_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const LEFTY_LC = [..."αɓ૮∂εƒɠɦเʝҡℓɱɳσρφ૨รƭµѵωאყƶ"];
+function lefty(text) {
+    text = text.normalize("NFD");
+    text = lcOnly(text, LEFTY_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const SHAKY_UC  = [..."ꋫꃃꏸꁕꍟꄘꁍꑛꂑꀭꀗ꒒ꁒꁹꆂꉣꁸ꒓ꌚ꓅ꐇꏝꅐꇓꐟꁴ"];
+function shaky(text) {
+    text = text.normalize("NFD");
+    text = uc(text, SHAKY_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const NARROW_UC = [..."ꍏꌃꉓꀸꍟꎇꁅꃅꀤꀭꀘ꒒ꂵꈤꂦꉣꆰꋪꌗ꓄ꀎꃴꅏꊼꌩꁴ"];
+function narrow(text) {
+    text = text.normalize("NFD");
+    text = uc(text, NARROW_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const STINGY_UC = [..."ꁲꋰꀯꂠꈼꄞꁅꍩꂑ꒻ꀗ꒒ꂵꋊꂦꉣꁷꌅꌚꋖꐇꀰꅏꇒꐞꁴ"];
+function stingy(text) {
+    text = text.normalize("NFD");
+    text = uc(text, STINGY_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const HIEROGLYPHIC_UC  = [..."ԹՅՇԺȝԲԳɧɿʝƙʅʍՌԾρφՐՏԵՄעաՃՎՀ"];
+function hieroglyphic(text) {
+    text = text.normalize("NFD");
+    text = uc(text, HIEROGLYPHIC_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const ORIENTAL_UC = [..."ᏗᏰፈᎴᏋᎦᎶᏂᎥᏠᏦᏝᎷᏁᎧᎮᎤᏒᏕᏖᏬᏉᏇጀᎩፚ"];
+function oriental(text) {
+    text = text.normalize("NFD");
+    text = uc(text, ORIENTAL_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const T3XT_UC     = [..."48(D3F9H!JK1MN0PQR57UVWXY2"];
+const T3XT_LC     = [..."48(d3f9h!jk1mn0pqr57uvwxy2"];
+function t3xt(text) {
+    text = text.normalize("NFD");
+    text = uc(text, ORIENTAL_UC);
+    text = lc(text, ORIENTAL_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const ORTHODOX_UC = [..."@฿ςÐΞךּĝĦ¡∂қĺmמθÞΘя§‡טעשּׂЖצּζ"];
+function orthodox(text) {
+    text = text.normalize("NFD");
+    text = uc(text, ORTHODOX_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const FANCEE_UC   = [..."નЪ૮ԁ૯ԲցસіڙқԼறהଇϷ૧Я૬Ҭμνயϰϓｚ"];
+function fancee(text) {
+    text = text.normalize("NFD");
+    text = uc(text, FANCEE_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CURRENCY_2_UC = [..."AB¢₫€ƒgΩ¡j₭Lm₪Φ₽φ₹$₮ρν₩Χ¥Z"];
+const CURRENCY_2_LC = [..."ab¢₫€ƒgΩ¡j₭Lm₪Φ₽φ₹$₮ρν₩Χ¥z"];
+function currency2(text) {
+    text = text.normalize("NFD");
+    text = uc(text, CURRENCY_2_UC);
+    text = lc(text, CURRENCY_2_LC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CHESS_UC      = [..."♝bҫ₫ҼҒᏩӈ♙ᏧҠӀ₥ӣoҎգԻֆҭմ∨ഢҲұℤ"];
+function chess(text) {
+    text = text.normalize("NFD");
+    text = uc(text, CHESS_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const YODA_UC       = [..."ลв¢∂эƒφђเנкℓми๏קợяร†µ√ωҗýž"];
+function yoda(text) {
+    text = text.normalize("NFD");
+    text = uc(text, YODA_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const FAHRENHEIT_UC = [..."ꋬꉉ℃ꌛ℮℉ꍌꈚꊛꋒ㏍ꅤꀪꁣꇩꀆꆰꋪꈛ꓄ꀀ℣ꂸꊩꌦꍈ"];
+function fahrenheit(text) {
+    text = text.normalize("NFD");
+    text = uc(text, FAHRENHEIT_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const WISDOM_UC     = [..."λßȻɖεʃĢħίĵκιɱɴΘρƣરȘτƲνώΧϓՀ"];
+function wisdom(text) {
+    text = text.normalize("NFD");
+    text = uc(text, WISDOM_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const HOURGLASS_UC  = [..."A♭꒞꒯㉹f꒸♬ﭐ꒻kLѪո♡рզrՖ†ﮠvա꒾վՀ"];
+function hourglass(text) {
+    text = text.normalize("NFD");
+    text = uc(text, HOURGLASS_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const SLIM_UC       = [..."ᗩᗷᑢᕲᘿᖴᘜᕼᓰᒚKᒪᘻᘉᓍᕵᕴᖇSᖶᑘᐺᘺ᙭ᖻᗱ"];
+function slim(text) {
+    text = text.normalize("NFD");
+    text = uc(text, SLIM_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const FAKE_HEBREW_UC = [..."ค๒ς๔єŦﻮђเןкɭ๓ภ๏קợгรՇยשฬאץչ"];
+function fakeHebrew(text) {
+    text = text.normalize("NFD");
+    text = uc(text, FAKE_HEBREW_UC);
+    text = text.normalize("NFC");
+    return text;
+}
+
+const CURLY_UC       = [..."ǟɮƈɖɛʄɢɦɨʝӄʟʍռօքզʀֆȶʊʋաӼʏʐ"];
+function curly(text) {
+    text = text.normalize("NFD");
+    text = uc(text, CURLY_UC);
+    text = text.normalize("NFC");
+    return text;
+}
 
 const conversionFunctions = {
     fraktur,
@@ -434,41 +782,89 @@ const conversionFunctions = {
     lowerCaseToSmallCaps,
     smallCaps,
     rockDots,
+    symbols,
+    currency,
+    bent,
+    alien,
+    mirror,
+    greek,
+    curve,
+    brush,
+    ageOld,
+    squiggle1,
+    squiggle2,
+    squiggle3,
+    squiggle4,
+
+    // NEW
+    anchor,
+    wiggly,
+    crissCross,
+    glitch,
+    fakeCyrillic2,
+    curvy1,
+    curvy2,
+    curvy3,
+    fakeEthiopian,
+    stroked,
 };
 
 const conversionList = [
-    { "functionName": "fraktur",              name: "Fraktur", },
-    { "functionName": "frakturBold",          name: "Fraktur Bold", },
-    { "functionName": "sansSerif",            name: "Sans Serif", },
-    { "functionName": "sansSerifItalic",      name: "Sans Serif Italic", },
-    { "functionName": "sansSerifBold",        name: "Sans Serif Bold", },
-    { "functionName": "sansSerifBoldItalic",  name: "Sans Serif Bold Italic", },
-    { "functionName": "serifBold",            name: "Serif Bold", },
-    { "functionName": "serifItalic",          name: "Serif Italic", },
-    { "functionName": "serifBoldItalic",      name: "Serif Bold Italic", },
-    { "functionName": "fullWidth",            name: "Full Width", },
-    { "functionName": "monospace",            name: "Monospace", },
-    { "functionName": "script",               name: "Script", },
-    { "functionName": "scriptBold",           name: "Script Bold", },
-    { "functionName": "doubleStruck",         name: "Double-Struck", },
-    { "functionName": "squared",              name: "Squared", },
-    { "functionName": "squaredNegative",      name: "Squared (negative)", },
-    { "functionName": "circled",              name: "Circled", },
-    { "functionName": "circledNegative",      name: "Circled (negative)", },
-    { "functionName": "subscript",            name: "Subscript", },
-    { "functionName": "superscript",          name: "Superscript", },
-    { "functionName": "fakeCyrillic",         name: "Fake Cyrillic", },
-    { "functionName": "inverted",             name: "Inverted", },
-    { "functionName": "reversed",             name: "Reversed", },
-    { "functionName": "parenthesized",        name: "Parenthesized", },
-    { "functionName": "comic",                name: "Comic", },
-    { "functionName": "manga",                name: "Manga", },
-    { "functionName": "ladybug",              name: "Ladybug", },
-    { "functionName": "yi",                   name: "Yi", },
-    { "functionName": "tai",                  name: "Tai", },
-    { "functionName": "lowerCaseToSmallCaps", name: "Lower Case to Small Caps", },
-    { "functionName": "smallCaps",            name: "Small Caps", },
-    { "functionName": "rockDots",             name: "Rock Dots", },
+    { "functionName": "fraktur",              "name": "Fraktur", },
+    { "functionName": "frakturBold",          "name": "Fraktur Bold", },
+    { "functionName": "sansSerif",            "name": "Sans Serif", },
+    { "functionName": "sansSerifItalic",      "name": "Sans Serif Italic", },
+    { "functionName": "sansSerifBold",        "name": "Sans Serif Bold", },
+    { "functionName": "sansSerifBoldItalic",  "name": "Sans Serif Bold Italic", },
+    { "functionName": "serifBold",            "name": "Serif Bold", },
+    { "functionName": "serifItalic",          "name": "Serif Italic", },
+    { "functionName": "serifBoldItalic",      "name": "Serif Bold Italic", },
+    { "functionName": "fullWidth",            "name": "Full Width", },
+    { "functionName": "monospace",            "name": "Monospace", },
+    { "functionName": "script",               "name": "Script", },
+    { "functionName": "scriptBold",           "name": "Script Bold", },
+    { "functionName": "doubleStruck",         "name": "Double-Struck", },
+    { "functionName": "squared",              "name": "Squared", },
+    { "functionName": "squaredNegative",      "name": "Squared (negative)", },
+    { "functionName": "circled",              "name": "Circled", },
+    { "functionName": "circledNegative",      "name": "Circled (negative)", },
+    { "functionName": "subscript",            "name": "Subscript", },
+    { "functionName": "superscript",          "name": "Superscript", },
+    { "functionName": "fakeCyrillic",         "name": "Fake Cyrillic", },
+    { "functionName": "inverted",             "name": "Inverted", "backward": true },
+    { "functionName": "reversed",             "name": "Reversed", "backward": true },
+    { "functionName": "parenthesized",        "name": "Parenthesized", },
+    { "functionName": "comic",                "name": "Comic", },
+    { "functionName": "manga",                "name": "Manga", },
+    { "functionName": "ladybug",              "name": "Ladybug", },
+    { "functionName": "yi",                   "name": "Yi", },
+    { "functionName": "tai",                  "name": "Tai", },
+    { "functionName": "lowerCaseToSmallCaps", "name": "Lower Case to Small Caps", },
+    { "functionName": "smallCaps",            "name": "Small Caps", },
+    { "functionName": "rockDots",             "name": "Rock Dots", },
+    { "functionName": "symbols",              "name": "Symbols" },
+    { "functionName": "currency",             "name": "Currency" },
+    { "functionName": "bent",                 "name": "Bent" },
+    { "functionName": "alien",                "name": "Alien" },
+    { "functionName": "mirror",               "name": "Mirror", "backward": true },
+    { "functionName": "greek",                "name": "Greek" },
+    { "functionName": "curve",                "name": "Curve" },
+    { "functionName": "brush",                "name": "Brush" },
+    { "functionName": "ageOld",               "name": "Age Old" },
+    { "functionName": "squiggle1",            "name": "Squiggle 1" },
+    { "functionName": "squiggle2",            "name": "Squiggle 2" },
+    { "functionName": "squiggle3",            "name": "Squiggle 3" },
+    { "functionName": "squiggle4",            "name": "Squiggle 4" },
+    { "functionName": "anchor",               "name": "Anchor" },
+    { "functionName": "wiggly",               "name": "Wiggly" },
+    { "functionName": "crissCross",           "name": "Criss-Cross" },
+    { "functionName": "glitch",               "name": "Glitch" },
+    { "functionName": "fakeCyrillic2",        "name": "Fake Cyrillic 2" },
+    { "functionName": "curvy1",               "name": "Curvy 1" },
+    { "functionName": "curvy2",               "name": "Curvy 2" },
+    { "functionName": "curvy3",               "name": "Curvy 3" },
+    { "functionName": "fakeEthiopian",        "name": "Fake Ethiopian" },
+    { "functionName": "stroked",              "name": "Stroked" },
 ];
 
 const ZALGO_DOWN = [
@@ -673,7 +1069,7 @@ function update(form) {
     }
 
     let backward = form.direction.value === "backward";
-    if (filterName === "inverted" || filterName === "reversed") {
+    if (filterName === "inverted" || filterName === "reversed" || filterName === "mirror") {
         backward = !backward;
     }
     if (backward) {
@@ -683,4 +1079,20 @@ function update(form) {
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     text = text.normalize("NFC");
     form.output.value = text;
+}
+
+function uc(text, chars) {
+    return text.replace(/[A-Z]/g, char => chars[char.codePointAt(0) - 65]);
+}
+function lc(text, chars) {
+    return text.replace(/[a-z]/g, char => chars[char.codePointAt(0) - 97]);
+}
+function ucOnly(text, chars) {
+    return text.replace(/[A-Za-z]/g, char => chars[char.toUpperCase().codePointAt(0) - 65]);
+}
+function lcOnly(text, chars) {
+    return text.replace(/[A-Za-z]/g, char => chars[char.toLowerCase().codePointAt(0) - 97]);
+}
+function digits(text, chars) {
+    return text.replace(/[0-9]/g, char => chars[char.codePointAt(0) - 48]);
 }
