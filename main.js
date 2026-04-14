@@ -290,7 +290,7 @@ function comic(text) {
     return text;
 }
 
-const MANGA_UC = [..."卂乃匚ᗪ乇千ᘜ卄|ﾌҜㄥ爪几ㄖ卩Ҩ尺丂ㄒㄩᐯ山乂ㄚ乙"];
+const MANGA_UC = [..."卂乃匚ᗪ乇千ᘜ卄丨ﾌҜㄥ爪几ㄖ卩Ҩ尺丂ㄒㄩᐯ山乂ㄚ乙"];
 function manga(text) {
     text = text.normalize("NFD");
     text = text.replace(/[A-Za-z]/g, char => MANGA_UC[char.toUpperCase().codePointAt(0) - 65]);
