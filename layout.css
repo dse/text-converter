@@ -74,6 +74,18 @@ body {
         gap: var(--gap);
     }
 }
+@media (min-width: 576px) {
+    .text-converter__params {
+        display: grid;
+        grid-template-areas: "filter filter case" "direction zalgo rot13";
+        > .text-converter__filter { grid-area: filter; }
+        > .text-converter__direction { grid-area: direction; }
+        > .text-converter__zalgo { grid-area: zalgo; }
+        > .text-converter__case { grid-area: case; }
+        > .text-converter__rot13 { grid-area: rot13; }
+        gap: var(--gap);
+    }
+}
 @media (min-width: 768px) {
     .text-converter__params {
         display: grid;
