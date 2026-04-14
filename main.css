@@ -35,8 +35,10 @@ body {
 select[name="filter"] {
     line-height: 1.5;
 }
-h1 {
-    font-size: 150%;
-    font-weight: normal;
-    font-style: italic;
+a:link, a:visited {
+    color: var(--anchor-color);
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
 }

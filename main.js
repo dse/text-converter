@@ -983,11 +983,6 @@ function spongebob(text) {
     return text;
 }
 
-if (typeof window !== "undefined") {
-    const form = document.getElementById("textConverterForm");
-    populate(form);
-}
-
 function populate(form) {
     const select = form.filter;
     while (select.firstChild) {
@@ -1127,4 +1122,34 @@ function lcOnly(text, chars) {
 }
 function digits(text, chars) {
     return text.replace(/[0-9]/g, char => chars[char.codePointAt(0) - 48]);
+}
+
+function homePage() {
+    const form = document.getElementById("textConverterForm");
+    populate(form);
+}
+
+function fontsPage() {
+    populateFonts(document.getElementById("fonts"));
+}
+
+function populateFonts(elt) {
+    for (const { functionName, name } of conversionList) {
+        const fn = conversionFunctions[functionName];
+        if (fn == null) {
+            continue;
+        }
+        const text1 = fn("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.");
+        const text2 = fn("The quick brown fox jumps over the lazy dog.");
+        const h2 = document.createElement("h2");
+        h2.classList.add("fonts-page__heading");
+        h2.append(document.createTextNode(name));
+        const p = document.createElement("p");
+        p.classList.add("fonts-page__sample");
+        p.append(document.createTextNode(text1));
+        p.append(document.createElement("br"));
+        p.append(document.createTextNode(text2));
+        elt.appendChild(h2);
+        elt.appendChild(p);
+    }
 }

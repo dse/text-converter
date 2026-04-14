@@ -1,0 +1,14 @@
+body {
+    padding: var(--gap);
+}
+.container {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.fonts-page__heading {
+}
+.fonts-page__sample {
+    border: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+}
