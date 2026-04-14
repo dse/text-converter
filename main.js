@@ -1001,7 +1001,10 @@ function populate(form) {
         const option = new Option(label, functionName);
         select.appendChild(option);
     }
-
+    const countElt = document.getElementById("filterCount");
+    if (countElt) {
+        countElt.innerHTML = conversionList.length;
+    }
     if (localStorage.getItem("textConverterFilter") != null) {
         const value = JSON.parse(localStorage.getItem("textConverterFilter"));
         form.filter.value = value;

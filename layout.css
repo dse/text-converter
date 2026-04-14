@@ -20,13 +20,38 @@ body {
 .text-converter__container {
     display: flex;
     flex-flow: column nowrap;
-    > .text-converter__heading {
+    > .text-converter__header {
         flex: 0 0 auto;
     }
     > .text-converter__form {
         flex: 1 0 auto;
     }
     gap: var(--gap);
+}
+.text-converter__header {
+    display: flex;
+    flex-flow: column nowrap;
+    > .text-converter__main-header {
+        text-align: center;
+        flex: 1 0 auto;
+    }
+    > .text-converter__sub-header {
+        text-align: center;
+        flex: 1 0 auto;
+    }
+    column-gap: var(--gap);
+}
+@media (min-width: 768px) {
+    .text-converter__header {
+        flex-flow: row nowrap;
+        align-items: baseline;
+        > .text-converter__main-header {
+            text-align: left;
+        }
+        > .text-converter__sub-header {
+            text-align: right;
+        }
+    }
 }
 .text-converter__form {
     display: flex;
